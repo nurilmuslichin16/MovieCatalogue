@@ -3,4 +3,9 @@
     <string name="title">Movie Catalogue</string>
     <string name="subtitle_splash">Find your favorite movie</string>
     <string name="created_by">Created By Nuril Muslichin</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="category_film">Category Film</string>
+    <string name="tv_show_tab">TV Show</string>
+    <string name="movie_tab">Movie</string>
 </resources>

@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="title">#536DFE</color>
     <color name="bg_dekorasi">#EDF0FF</color>
+    <color name="color_image">#536DFE</color>
 </resources>
