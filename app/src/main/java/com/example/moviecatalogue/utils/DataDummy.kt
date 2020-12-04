@@ -91,4 +91,101 @@ object DataDummy {
 
         return courses
     }
+
+    fun generateDummyTv(): List<MovieEntity> {
+
+        val tv = ArrayList<MovieEntity>()
+
+        tv.add(MovieEntity("t1",
+            R.drawable.poster_tv_arrow,
+            "The Arrow",
+            "2012",
+            "6.5",
+            "Kejahatan, Drama, Misteri, Aksi & Petualangan",
+            "Panah adalah menceritakan kembali petualangan dari legendaris DC pahlawan Green Arrow.",
+            "10 Oktober 2012"))
+
+        tv.add(MovieEntity("t2",
+            R.drawable.poster_tv_dragon_ball,
+            "Dragon Ball",
+            "1986",
+            "8.0",
+            "Komedi, Sci-fi & Fantasy, Animasi, Aksi & Petualangan",
+            "Dahulu kala di pegunungan, seorang master pertempuran yang dikenal sebagai Gohan menemukan seorang bocah aneh yang ia beri nama Goku. Gohan membesarkannya dan melatih Goku dalam seni bela diri sampai dia mati. Bocah muda dan sangat kuat itu sendirian, tetapi mudah dikelola. Kemudian suatu hari, Goku bertemu dengan seorang gadis remaja bernama Bulma, yang pencariannya untuk bola naga membawanya ke rumah Goku. Bersama-sama, mereka berangkat untuk menemukan ketujuh bola naga dalam sebuah petualangan yang akan mengubah hidup Goku selamanya. Lihat bagaimana Goku bertemu teman-teman seumur hidupnya Bulma, Yamcha, Krillin, Master Roshi dan banyak lagi.",
+            "20 Desember 1986"))
+
+        tv.add(MovieEntity("t3",
+            R.drawable.poster_tv_fairytail,
+            "Fairy Tail",
+            "2009",
+            "7.6",
+            "Komedi, Sci-fi & Fantasy, Animasi, Aksi & Petualangan",
+            "Lucy adalah seorang gadis berusia 17 tahun, yang ingin menjadi penyihir sejati. Suatu hari ketika mengunjungi Kota Harujion, dia bertemu dengan Natsu, seorang pemuda yang mudah sakit dengan segala jenis transportasi. Tapi Natsu bukan sembarang anak biasa, dia adalah anggota dari salah satu guild penyihir paling terkenal di dunia: Fairy Tail.",
+            "12 Oktober 2009"))
+
+        tv.add(MovieEntity("t4",
+            R.drawable.poster_tv_family_guy,
+            "Family Guy",
+            "1999",
+            "6.9",
+            "Animasi, Komedi",
+            "Seri animasi animasi Freakin 'Sweet yang sakit, terpelintir, dan salah, menampilkan petualangan keluarga Griffin yang disfungsional. Peter yang kikuk dan Lois yang sudah lama menderita memiliki tiga anak. Stewie (bayi yang brilian tetapi sadis yang bertekad membunuh ibunya dan mengambil alih dunia), Meg (yang tertua, dan merupakan gadis yang paling tidak populer di kota) dan Chris (anak tengah, dia tidak terlalu cerdas tetapi memiliki hasrat untuk film ). Anggota terakhir keluarga itu adalah Brian - anjing yang bisa bicara dan lebih dari sekadar hewan peliharaan, ia menjaga Stewie, sementara menghirup Martinis dan memilah-milah masalah hidupnya sendiri.",
+            "31 Januari 1999"))
+
+        tv.add(MovieEntity("t5",
+            R.drawable.poster_tv_flash,
+            "The Flash",
+            "2014",
+            "7.6",
+            "Drama, Sci-Fi & Fantasy",
+            "Setelah akselerator partikel menyebabkan badai aneh, Penyelidik CSI Barry Allen disambar petir dan jatuh koma. Beberapa bulan kemudian dia terbangun dengan kekuatan kecepatan super, memberinya kemampuan untuk bergerak melalui Central City seperti malaikat penjaga yang tak terlihat. Meskipun awalnya senang dengan kekuatan barunya, Barry terkejut menemukan bahwa dia bukan satu-satunya \"manusia meta\" yang diciptakan setelah ledakan akselerator - dan tidak semua orang menggunakan kekuatan baru mereka untuk kebaikan. Barry bermitra dengan S.T.A.R. Lab dan mendedikasikan hidupnya untuk melindungi yang tidak bersalah. Untuk saat ini, hanya beberapa teman dekat dan rekan yang tahu bahwa Barry secara harfiah adalah manusia tercepat, tetapi tidak lama sebelum dunia mengetahui apa yang menjadi Barry Allen ... The Flash.",
+            "7 Oktober 2014"))
+
+        tv.add(MovieEntity("t6",
+            R.drawable.poster_tv_gotham,
+            "Gotham",
+            "2014",
+            "7.4",
+            "Drama, Fantasi, Kejahatan",
+            "Semua orang tahu nama Komisaris Gordon. Dia adalah salah satu musuh terbesar dunia kejahatan, seorang pria yang reputasinya identik dengan hukum dan ketertiban. Tapi apa yang diketahui tentang kisah Gordon dan kenaikannya dari detektif pemula ke Komisaris Polisi? Apa yang diperlukan untuk menavigasi berbagai lapisan korupsi yang diam-diam memerintah Kota Gotham, tempat bertelurnya penjahat paling ikonik di dunia? Dan keadaan apa yang menciptakan mereka - persona yang lebih besar dari kehidupan yang akan menjadi Catwoman, The Penguin, The Riddler, Two-Face dan The Joker?",
+            "22 September 2014"))
+
+        tv.add(MovieEntity("t7",
+            R.drawable.poster_tv_naruto_shipudden,
+            "Naruto Shipudden",
+            "2007",
+            "8.7",
+            "Animasi, Komedi, Drama",
+            "Naruto Shippuuden adalah kelanjutan dari serial TV animasi asli Naruto. Kisah ini berkisah tentang Uzumaki Naruto yang lebih tua dan sedikit lebih matang dan upayanya untuk menyelamatkan temannya Uchiha Sasuke dari cengkeraman Shinobi seperti ular, Orochimaru. Setelah 2 setengah tahun, Naruto akhirnya kembali ke desanya Konoha, dan mulai mewujudkan ambisinya, meskipun itu tidak akan mudah, karena Ia telah mengumpulkan beberapa musuh (lebih berbahaya), seperti organisasi shinobi. ; Akatsuki.",
+            "15 Februari 2007"))
+
+        tv.add(MovieEntity("t8",
+            R.drawable.poster_tv_supergirl,
+            "Supergirl",
+            "2015",
+            "7.1",
+            "Aksi, Petualangan, Drama, Cerita Fiksi",
+            "Kara Zor-El yang berusia dua puluh empat tahun, yang dibawa oleh keluarga Danvers ketika dia berusia 13 tahun setelah diusir dari Krypton, harus belajar merangkul kekuatannya setelah sebelumnya menyembunyikannya. The Danvers mengajarinya untuk berhati-hati dengan kekuatannya, sampai dia harus mengungkapkannya selama bencana yang tidak terduga, yang membuatnya berada dalam perjalanan kepahlawanannya.",
+            "26 Oktober 2015"))
+
+        tv.add(MovieEntity("t9",
+            R.drawable.poster_tv_supernatural,
+            "Supernatural",
+            "2005",
+            "8.1",
+            "Drama, Misteri, Sci-Fi & Fantasi",
+            "Dua bersaudara mencari ayah mereka yang hilang, pria yang melatih mereka untuk menjadi prajurit melawan kejahatan supernatural.",
+            "13 September 2005"))
+
+        tv.add(MovieEntity("t10",
+            R.drawable.poster_tv_the_walking_dead,
+            "The Walking Dead",
+            "2010",
+            "8.2",
+            "Horor, Drama",
+            "The Walking Dead adalah serial televisi horor pasca-apokaliptik Amerika yang dikembangkan oleh Frank Darabont untuk AMC, berdasarkan serial buku komik dengan nama yang sama oleh Robert Kirkman, Tony Moore, dan Charlie Adlard. Andrew Lincoln memerankan tokoh utama, deputi sherif Rick Grimes, yang terbangun dari koma selama berbulan-bulan untuk menghadapi dunia pasca-apokaliptik yang dibanjiri oleh zombi, yang biasa disebut sebagai \"walker\". Rick bersatu kembali dengan keluarganya dan menjadi pemimpin kelompok yang ia bentuk dengan penyintas lainnya. Bersama-sama mereka berjuang untuk bertahan hidup dan beradaptasi dengan dunia yang penuh dengan zombi dan beberapa manusia yang bahkan lebih berbahaya daripada zombi itu sendiri.",
+            "31 Oktober 2010"))
+
+        return tv
+    }
 }

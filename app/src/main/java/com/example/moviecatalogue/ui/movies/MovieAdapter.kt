@@ -14,12 +14,12 @@ import kotlinx.android.synthetic.main.item_movies.view.*
 
 class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
-    private var listCourse = ArrayList<MovieEntity>()
+    private var listMovies = ArrayList<MovieEntity>()
 
-    fun setCourses(movies: List<MovieEntity>?) {
+    fun setMovies(movies: List<MovieEntity>?) {
         if (movies == null) return
-        listCourse.clear()
-        listCourse.addAll(movies)
+        listMovies.clear()
+        listMovies.addAll(movies)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieAdapter.MovieViewHolder {
@@ -28,11 +28,11 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: MovieAdapter.MovieViewHolder, position: Int) {
-        val course = listCourse[position]
-        holder.bind(course)
+        val movie = listMovies[position]
+        holder.bind(movie)
     }
 
-    override fun getItemCount(): Int = listCourse.size
+    override fun getItemCount(): Int = listMovies.size
 
     class MovieViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bind(movie: MovieEntity) {
