@@ -44,6 +44,7 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
                 setOnClickListener {
                     val intent = Intent(context, DetailActivity::class.java).apply {
                         putExtra(DetailActivity.EXTRA_DETAIL, movie.movieId)
+                        putExtra(DetailActivity.EXTRA_TYPE, "movie")
                     }
                     context.startActivity(intent)
                 }

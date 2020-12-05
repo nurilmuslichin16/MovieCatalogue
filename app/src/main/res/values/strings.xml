@@ -8,4 +8,15 @@
     <string name="category_film">Category Film</string>
     <string name="tv_show_tab">TV Show</string>
     <string name="movie_tab">Movie</string>
+    <string name="cd_image_poster">Image Poster</string>
+    <string name="cd_back_image_detail">Back Image Detail</string>
+    <string name="title_detail">Alita: Battle Of Angel</string>
+    <string name="category_detail">Aksi, Sci-Fi, Fantasi</string>
+    <string name="cd_rating_star">Image Rating Star</string>
+    <string name="rating_detail">7.8</string>
+    <string name="cd_back_arrow">Back Arrow Detail</string>
+    <string name="txt_release_date">Release Date</string>
+    <string name="txt_overview">Overview</string>
+    <string name="release_detail">12 Oktober 2018</string>
+    <string name="overview_detail">Ketika Alita terbangun tanpa ingatan tentang siapa dia di dunia masa depan yang tidak dia kenal, dia ditangkap oleh Ido, seorang dokter yang penuh kasih yang menyadari bahwa di suatu tempat dalam cangkang cyborg yang ditinggalkan ini adalah hati dan jiwa seorang wanita muda dengan luar biasa.</string>
 </resources>

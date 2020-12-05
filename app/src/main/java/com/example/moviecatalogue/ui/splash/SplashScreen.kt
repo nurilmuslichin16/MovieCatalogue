@@ -20,6 +20,7 @@ class SplashScreen : AppCompatActivity() {
             delay(3000L)
             val toHome = Intent(this@SplashScreen, HomeActivity::class.java)
             startActivity(toHome)
+            finish()
         }
     }
 }
