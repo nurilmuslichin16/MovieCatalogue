@@ -188,4 +188,6 @@ object DataDummy {
 
         return tv
     }
+
+    fun generateDummyEmpty(): List<MovieEntity> = ArrayList<MovieEntity>()
 }

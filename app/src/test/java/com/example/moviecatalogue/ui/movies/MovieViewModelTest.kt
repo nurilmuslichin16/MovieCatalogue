@@ -19,4 +19,11 @@ class MovieViewModelTest : TestCase() {
         assertNotNull(movieEntity)
         assertEquals(10, movieEntity.size)
     }
+
+    @Test
+    fun testEmptyMovie() {
+        val emptyEntity = viewModel.getEmptyMovie()
+        assertNotNull(emptyEntity)
+        assertEquals(0, emptyEntity.size)
+    }
 }

@@ -8,4 +8,5 @@ class TvViewModel: ViewModel() {
 
     fun getTv(): List<MovieEntity> = DataDummy.generateDummyTv()
 
+    fun getEmptyTv(): List<MovieEntity> = DataDummy.generateDummyEmpty()
 }

@@ -8,4 +8,6 @@ class MovieViewModel: ViewModel() {
 
     fun getMovies(): List<MovieEntity> = DataDummy.generateDummyMovie()
 
+    fun getEmptyMovie(): List<MovieEntity> = DataDummy.generateDummyEmpty()
+
 }

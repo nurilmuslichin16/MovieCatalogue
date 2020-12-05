@@ -19,4 +19,11 @@ class TvViewModelTest : TestCase() {
         assertNotNull(tvEntity)
         assertEquals(10, tvEntity.size)
     }
+
+    @Test
+    fun testEmptyTv() {
+        val emptyEntity = viewModel.getEmptyTv()
+        assertNotNull(emptyEntity)
+        assertEquals(0, emptyEntity.size)
+    }
 }
