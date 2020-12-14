@@ -11,4 +11,5 @@
     <color name="category">#7C7B7B</color>
     <color name="bg_dekorasi">#EDF0FF</color>
     <color name="color_image">#536DFE</color>
+    <color name="trans">#00000000</color>
 </resources>

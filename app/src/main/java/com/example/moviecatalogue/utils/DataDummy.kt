@@ -9,7 +9,7 @@ object DataDummy {
         val courses = ArrayList<MovieEntity>()
 
         courses.add(MovieEntity("m1",
-            R.drawable.poster_film_a_start_is_born,
+            "https://image.tmdb.org/t/p/w600_and_h900_bestv2/j8MRnCjuN7kpM8w3B5hM5mrvTaE.jpg",
             "A Start Is Born",
             "2018",
             "8.3",
@@ -17,7 +17,7 @@ object DataDummy {
             "Seorang bintang musik country yang karirnya mulai memudar, Jackson Maine (Bradley Cooper) menemukan sebuah talenta yang sangat berbakat di dalam diri dari seorang musisi muda bernama Ally (Lady Gaga). Maine berhasil mengorbitkan Ally menjadi seorang bintang muda yang menjanjikan. Namun keduanya terlibat hubungan yang lebih jauh dari sekedar mentor dan anak didik. Seiring dengan meroketnya karir dari Ally dan dirinya, Maine mengalami dilema mengenai masalah ini.",
             "19 Oktober 2018"))
         courses.add(MovieEntity("m2",
-            R.drawable.poster_film_alita,
+            "https://image.tmdb.org/t/p/w600_and_h900_bestv2/j8MRnCjuN7kpM8w3B5hM5mrvTaE.jpg",
             "Alita: Battle Angel",
             "2019",
             "7.1",
@@ -25,7 +25,7 @@ object DataDummy {
             "Ketika Alita terbangun tanpa ingatan tentang siapa dia di dunia masa depan yang tidak dia kenal, dia ditangkap oleh Ido, seorang dokter yang penuh kasih yang menyadari bahwa di suatu tempat dalam cangkang cyborg yang ditinggalkan ini adalah hati dan jiwa seorang wanita muda dengan luar biasa.",
             "14 Februari 2019"))
         courses.add(MovieEntity("m3",
-            R.drawable.poster_film_aquaman,
+            "https://image.tmdb.org/t/p/w600_and_h900_bestv2/j8MRnCjuN7kpM8w3B5hM5mrvTaE.jpg",
             "Aquaman",
             "2018",
             "6.9",
@@ -33,7 +33,7 @@ object DataDummy {
             "Dulunya rumah bagi peradaban paling maju di Bumi, Atlantis sekarang menjadi kerajaan bawah air yang diperintah oleh Raja Orm yang haus kekuasaan. Dengan pasukan besar yang dimilikinya, Orm berencana untuk menaklukkan orang-orang samudra yang tersisa dan kemudian dunia permukaan. Yang menghalangi jalannya adalah Arthur Curry, saudara setengah manusia Orm, saudara setengah Atlantis dan pewaris sejati takhta.",
             "21 Desember 2018"))
         courses.add(MovieEntity("m4",
-            R.drawable.poster_film_bohemian,
+            "https://image.tmdb.org/t/p/w600_and_h900_bestv2/j8MRnCjuN7kpM8w3B5hM5mrvTaE.jpg",
             "Bohemian Rhapsody",
             "2018",
             "8.0",
@@ -41,7 +41,7 @@ object DataDummy {
             "Penyanyi Freddie Mercury, gitaris Brian May, drummer Roger Taylor, dan gitaris bass John Deacon menggemparkan dunia musik ketika mereka membentuk band rock 'n' roll Queen pada tahun 1970. Lagu-lagu hit menjadi klasik instan. Ketika gaya hidup Mercury yang semakin liar mulai lepas kendali, Queen segera menghadapi tantangan terbesarnya - menemukan cara untuk menjaga band tetap bersama di tengah kesuksesan dan kelebihan.",
             "02 November 2018"))
         courses.add(MovieEntity("m5",
-            R.drawable.poster_film_cold_persuit,
+            "https://image.tmdb.org/t/p/w600_and_h900_bestv2/j8MRnCjuN7kpM8w3B5hM5mrvTaE.jpg",
             "Cold Persuit",
             "2019",
             "5.6",
@@ -49,7 +49,7 @@ object DataDummy {
             "Kehidupan keluarga yang tenang dari Nels Coxman, seorang pengemudi bajak salju, berubah setelah pembunuhan putranya. Nels memulai perburuan dendam untuk Viking, raja obat bius yang dianggapnya bertanggung jawab atas pembunuhan itu, melenyapkan rekan Viking satu per satu. Saat Nels semakin dekat dengan Viking, tindakannya membawa konsekuensi yang lebih tidak terduga dan kejam, karena ia membuktikan bahwa balas dendam ada dalam eksekusi.",
             "08 Februari 2019"))
         courses.add(MovieEntity("m6",
-            R.drawable.poster_film_creed,
+            "https://image.tmdb.org/t/p/w600_and_h900_bestv2/j8MRnCjuN7kpM8w3B5hM5mrvTaE.jpg",
             "Creed II",
             "2018",
             "6.9",
@@ -57,7 +57,7 @@ object DataDummy {
             "Antara kewajiban pribadi dan pelatihan untuk pertarungan besar berikutnya melawan lawan yang terkait dengan masa lalu keluarganya, Adonis Creed menghadapi tantangan dalam hidupnya.",
             "21 November 2018"))
         courses.add(MovieEntity("m7",
-            R.drawable.poster_film_crimes,
+            "https://image.tmdb.org/t/p/w600_and_h900_bestv2/j8MRnCjuN7kpM8w3B5hM5mrvTaE.jpg",
             "The Crimes Of Grindelwald",
             "2018",
             "6.9",
@@ -65,7 +65,7 @@ object DataDummy {
             "Gellert Grindelwald telah melarikan diri dari penjara dan telah mulai mengumpulkan pengikut ke tujuannya — meninggikan penyihir di atas semua makhluk non-magis. Satu-satunya yang bisa menghentikannya adalah penyihir yang pernah disebutnya sebagai sahabat terdekatnya, Albus Dumbledore. Namun, Dumbledore akan perlu mencari bantuan dari penyihir yang telah menggagalkan Grindelwald sebelumnya, mantan muridnya, Newt Scamander, yang setuju untuk membantu, tidak menyadari bahaya yang ada di depan. Garis-garis digambar saat cinta dan kesetiaan diuji, bahkan di antara teman-teman dan keluarga sejati, di dunia sihir yang semakin terbagi.",
             "16 November 2018"))
         courses.add(MovieEntity("m8",
-            R.drawable.poster_film_glass,
+            "https://image.tmdb.org/t/p/w600_and_h900_bestv2/j8MRnCjuN7kpM8w3B5hM5mrvTaE.jpg",
             "Glass",
             "2019",
             "6.6",
@@ -73,7 +73,7 @@ object DataDummy {
             "Dalam serangkaian pertemuan yang meningkat, mantan penjaga keamanan David Dunn menggunakan kemampuan supernaturalnya untuk melacak Kevin Wendell Crumb, seorang pria yang memiliki dua puluh empat kepribadian yang terganggu. Sementara itu, kehadiran bayangan Elijah Price muncul sebagai seorang orkestra yang menyimpan rahasia penting bagi keduanya.",
             "18 Januari 2019"))
         courses.add(MovieEntity("m9",
-            R.drawable.poster_film_how_to_train,
+            "https://image.tmdb.org/t/p/w600_and_h900_bestv2/j8MRnCjuN7kpM8w3B5hM5mrvTaE.jpg",
             "How To Train Your Dragon: The Hidden World",
             "2019",
             "7.8",
@@ -81,7 +81,7 @@ object DataDummy {
             "Ketika Hiccup memenuhi mimpinya untuk menciptakan utopia naga yang damai, penemuan Toothless 'dari pasangan yang tak teruji dan sukar ditangkap membuat Night Fury menjauh. Ketika bahaya meningkat di rumah dan pemerintahan Hiccup sebagai kepala desa diuji, baik naga dan pengendara harus membuat keputusan yang mustahil untuk menyelamatkan jenis mereka.",
             "22 Februari 2019"))
         courses.add(MovieEntity("m10",
-            R.drawable.poster_film_infinity_war,
+            "https://image.tmdb.org/t/p/w600_and_h900_bestv2/j8MRnCjuN7kpM8w3B5hM5mrvTaE.jpg",
             "Avengers: Infinity War",
             "2018",
             "8.3",
@@ -97,7 +97,7 @@ object DataDummy {
         val tv = ArrayList<MovieEntity>()
 
         tv.add(MovieEntity("t1",
-            R.drawable.poster_tv_arrow,
+            "https://image.tmdb.org/t/p/w600_and_h900_bestv2/wGFUewXPeMErCe2xnCmmLEiHOGh.jpg",
             "The Arrow",
             "2012",
             "6.5",
@@ -106,7 +106,7 @@ object DataDummy {
             "10 Oktober 2012"))
 
         tv.add(MovieEntity("t2",
-            R.drawable.poster_tv_dragon_ball,
+            "https://image.tmdb.org/t/p/w600_and_h900_bestv2/wGFUewXPeMErCe2xnCmmLEiHOGh.jpg",
             "Dragon Ball",
             "1986",
             "8.0",
@@ -115,7 +115,7 @@ object DataDummy {
             "20 Desember 1986"))
 
         tv.add(MovieEntity("t3",
-            R.drawable.poster_tv_fairytail,
+            "https://image.tmdb.org/t/p/w600_and_h900_bestv2/wGFUewXPeMErCe2xnCmmLEiHOGh.jpg",
             "Fairy Tail",
             "2009",
             "7.6",
@@ -124,7 +124,7 @@ object DataDummy {
             "12 Oktober 2009"))
 
         tv.add(MovieEntity("t4",
-            R.drawable.poster_tv_family_guy,
+            "https://image.tmdb.org/t/p/w600_and_h900_bestv2/wGFUewXPeMErCe2xnCmmLEiHOGh.jpg",
             "Family Guy",
             "1999",
             "6.9",
@@ -133,7 +133,7 @@ object DataDummy {
             "31 Januari 1999"))
 
         tv.add(MovieEntity("t5",
-            R.drawable.poster_tv_flash,
+            "https://image.tmdb.org/t/p/w600_and_h900_bestv2/wGFUewXPeMErCe2xnCmmLEiHOGh.jpg",
             "The Flash",
             "2014",
             "7.6",
@@ -142,7 +142,7 @@ object DataDummy {
             "7 Oktober 2014"))
 
         tv.add(MovieEntity("t6",
-            R.drawable.poster_tv_gotham,
+            "https://image.tmdb.org/t/p/w600_and_h900_bestv2/wGFUewXPeMErCe2xnCmmLEiHOGh.jpg",
             "Gotham",
             "2014",
             "7.4",
@@ -151,7 +151,7 @@ object DataDummy {
             "22 September 2014"))
 
         tv.add(MovieEntity("t7",
-            R.drawable.poster_tv_naruto_shipudden,
+            "https://image.tmdb.org/t/p/w600_and_h900_bestv2/wGFUewXPeMErCe2xnCmmLEiHOGh.jpg",
             "Naruto Shipudden",
             "2007",
             "8.7",
@@ -160,7 +160,7 @@ object DataDummy {
             "15 Februari 2007"))
 
         tv.add(MovieEntity("t8",
-            R.drawable.poster_tv_supergirl,
+            "https://image.tmdb.org/t/p/w600_and_h900_bestv2/wGFUewXPeMErCe2xnCmmLEiHOGh.jpg",
             "Supergirl",
             "2015",
             "7.1",
@@ -169,7 +169,7 @@ object DataDummy {
             "26 Oktober 2015"))
 
         tv.add(MovieEntity("t9",
-            R.drawable.poster_tv_supernatural,
+            "https://image.tmdb.org/t/p/w600_and_h900_bestv2/wGFUewXPeMErCe2xnCmmLEiHOGh.jpg",
             "Supernatural",
             "2005",
             "8.1",
@@ -178,7 +178,7 @@ object DataDummy {
             "13 September 2005"))
 
         tv.add(MovieEntity("t10",
-            R.drawable.poster_tv_the_walking_dead,
+            "https://image.tmdb.org/t/p/w600_and_h900_bestv2/wGFUewXPeMErCe2xnCmmLEiHOGh.jpg",
             "The Walking Dead",
             "2010",
             "8.2",

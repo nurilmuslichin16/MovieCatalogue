@@ -2,9 +2,10 @@ package com.example.moviecatalogue.ui.detail
 
 import androidx.lifecycle.ViewModel
 import com.example.moviecatalogue.data.MovieEntity
+import com.example.moviecatalogue.data.source.MovieRepository
 import com.example.moviecatalogue.utils.DataDummy
 
-class DetailViewModel: ViewModel() {
+class DetailViewModel(private val movieRepository: MovieRepository): ViewModel() {
 
     private lateinit var movieId: String
 
@@ -14,7 +15,7 @@ class DetailViewModel: ViewModel() {
 
     fun getMovie(): MovieEntity {
         lateinit var movie: MovieEntity
-        val moviesEntities = DataDummy.generateDummyMovie()
+        val moviesEntities = movieRepository.getAllMovies()
         for (movieEntity in moviesEntities) {
             if (movieEntity.movieId == movieId) {
                 movie = movieEntity
@@ -25,7 +26,7 @@ class DetailViewModel: ViewModel() {
 
     fun getTv(): MovieEntity {
         lateinit var tv: MovieEntity
-        val tvEntities = DataDummy.generateDummyTv()
+        val tvEntities = movieRepository.getAllTv()
         for (tvEntity in tvEntities) {
             if (tvEntity.movieId == movieId) {
                 tv = tvEntity

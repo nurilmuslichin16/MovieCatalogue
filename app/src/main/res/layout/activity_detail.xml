@@ -11,10 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/ll_back_image"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="320dp"
             android:orientation="vertical">
 
             <ImageView
@@ -26,7 +26,12 @@
                 android:scaleType="matrix"
                 android:contentDescription="@string/cd_back_image_detail"/>
 
-        </LinearLayout>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/transparant_gradient" />
+
+        </RelativeLayout>
 
         <ImageView
             android:id="@+id/iv_back"
@@ -42,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/iv_back"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="150dp"
             android:layout_marginStart="16dp"
             app:cardCornerRadius="6dp"
             app:cardElevation="6dp"
@@ -63,7 +68,6 @@
             android:id="@+id/tv_title"
             android:layout_width="190dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
             android:layout_marginEnd="35dp"
             android:text="@string/title_detail"
             android:maxLines="2"
