@@ -1,11 +1,21 @@
 package com.example.moviecatalogue.ui.detail
 
+import com.example.moviecatalogue.data.MovieEntity
+import com.example.moviecatalogue.data.source.MovieRepository
 import com.example.moviecatalogue.utils.DataDummy
 import junit.framework.TestCase
+import junit.framework.TestCase.assertEquals
+import junit.framework.TestCase.assertNotNull
 import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.mockito.Mock
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.verify
+import org.mockito.junit.MockitoJUnitRunner
 
-class DetailViewModelTest : TestCase() {
+@RunWith(MockitoJUnitRunner::class)
+class DetailViewModelTest {
 
     private lateinit var viewModel: DetailViewModel
 
@@ -15,15 +25,20 @@ class DetailViewModelTest : TestCase() {
     private val dummyTv = DataDummy.generateDummyTv()[0]
     private val tvId = dummyTv.movieId
 
+    @Mock
+    private lateinit var movieRepository: MovieRepository
+
     @Before
-    override fun setUp() {
-        viewModel = DetailViewModel()
+    fun setUp() {
+        viewModel = DetailViewModel(movieRepository)
     }
 
     @Test
     fun testGetMovie() {
+        `when`(movieRepository.getAllMovies()).thenReturn(DataDummy.generateDummyMovie() as ArrayList<MovieEntity>)
         viewModel.setSelectedMovie(movieId)
         val movieEntity = viewModel.getMovie()
+        verify(movieRepository).getAllMovies()
         assertNotNull(movieEntity)
         assertEquals(dummyMovie.movieId, movieEntity.movieId)
         assertEquals(dummyMovie.category, movieEntity.category)
@@ -37,8 +52,10 @@ class DetailViewModelTest : TestCase() {
 
     @Test
     fun testGetTv() {
+        `when`(movieRepository.getAllTv()).thenReturn(DataDummy.generateDummyTv() as ArrayList<MovieEntity>)
         viewModel.setSelectedMovie(tvId)
         val tvEntity = viewModel.getTv()
+        verify(movieRepository).getAllTv()
         assertNotNull(tvEntity)
         assertEquals(dummyTv.movieId, tvEntity.movieId)
         assertEquals(dummyTv.category, tvEntity.category)
