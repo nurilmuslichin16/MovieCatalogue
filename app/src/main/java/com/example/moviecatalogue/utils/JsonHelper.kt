@@ -1,6 +1,7 @@
 package com.example.moviecatalogue.utils
 
 import android.content.Context
+import com.example.moviecatalogue.data.MovieEntity
 import com.example.moviecatalogue.data.source.remote.response.MovieResponse
 import org.json.JSONException
 import org.json.JSONObject
@@ -22,8 +23,8 @@ class JsonHelper(private val context: Context) {
         }
     }
 
-    fun loadMovies(): List<MovieResponse> {
-        val list = ArrayList<MovieResponse>()
+    fun loadMovies(): List<MovieEntity> {
+        val list = ArrayList<MovieEntity>()
         try {
             val responseObject = JSONObject(parsingFileToString("MovieResponses.json").toString())
             val listArray = responseObject.getJSONArray("movies")
@@ -39,7 +40,7 @@ class JsonHelper(private val context: Context) {
                 val overview = movie.getString("overview")
                 val release = movie.getString("release")
 
-                val movieResponse = MovieResponse(id, image, title, years, rating, category, overview, release)
+                val movieResponse = MovieEntity(id, image, title, years, rating, category, overview, release)
                 list.add(movieResponse)
             }
         } catch (e: JSONException) {
@@ -49,8 +50,8 @@ class JsonHelper(private val context: Context) {
         return list
     }
 
-    fun loadTv(): List<MovieResponse> {
-        val list = ArrayList<MovieResponse>()
+    fun loadTv(): List<MovieEntity> {
+        val list = ArrayList<MovieEntity>()
         try {
             val responseObject = JSONObject(parsingFileToString("TvResponses.json").toString())
             val listArray = responseObject.getJSONArray("tv")
@@ -66,7 +67,7 @@ class JsonHelper(private val context: Context) {
                 val overview = tv.getString("overview")
                 val release = tv.getString("release")
 
-                val tvResponse = MovieResponse(id, image, title, years, rating, category, overview, release)
+                val tvResponse = MovieEntity(id, image, title, years, rating, category, overview, release)
                 list.add(tvResponse)
             }
         } catch (e: JSONException) {

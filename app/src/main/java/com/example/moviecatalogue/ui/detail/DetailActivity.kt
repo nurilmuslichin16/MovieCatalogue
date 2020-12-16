@@ -25,39 +25,57 @@ class DetailActivity : AppCompatActivity() {
 
         val extras = intent.extras
         if (extras != null) {
-            val movieId = extras.getString(EXTRA_DETAIL)
-            if (movieId != null) {
+            val movieId = extras.getInt(EXTRA_DETAIL, 0)
+            if (movieId != 0) {
                 viewModel.setSelectedMovie(movieId)
                 val type = extras.getString(EXTRA_TYPE).toString()
                 if (type == "movie") {
-                    populateMovie(viewModel.getMovie())
+                    viewModel.getMovie().observe(this, {movie ->
+                        tv_title.text = movie.title
+                        tv_category.text = movie.category
+                        tv_rating.text = movie.rating.toString()
+                        tv_release.text = movie.release
+                        tv_overview.text = movie.overview
+
+                        Glide.with(this)
+                                .load("https://image.tmdb.org/t/p/w500" + movie.image)
+                                .apply(
+                                        RequestOptions.placeholderOf(R.drawable.ic_default_glide)
+                                                .error(R.drawable.ic_default_glide))
+                                .into(iv_image_detail)
+
+                        Glide.with(this)
+                                .load("https://image.tmdb.org/t/p/w500" + movie.image)
+                                .apply(
+                                        RequestOptions.placeholderOf(R.drawable.ic_default_glide)
+                                                .error(R.drawable.ic_default_glide))
+                                .into(iv_back_image_detail)
+                    })
                 } else {
-                    populateMovie(viewModel.getTv())
+                    viewModel.getTv().observe(this, {tv ->
+                        tv_title.text = tv.title
+                        tv_category.text = tv.category
+                        tv_rating.text = tv.rating.toString()
+                        tv_release.text = tv.release
+                        tv_overview.text = tv.overview
+
+                        Glide.with(this)
+                                .load("https://image.tmdb.org/t/p/w500" + tv.image)
+                                .apply(
+                                        RequestOptions.placeholderOf(R.drawable.ic_default_glide)
+                                                .error(R.drawable.ic_default_glide))
+                                .into(iv_image_detail)
+
+                        Glide.with(this)
+                                .load("https://image.tmdb.org/t/p/w500" + tv.image)
+                                .apply(
+                                        RequestOptions.placeholderOf(R.drawable.ic_default_glide)
+                                                .error(R.drawable.ic_default_glide))
+                                .into(iv_back_image_detail)
+                    })
                 }
             }
         }
-    }
-
-    private fun populateMovie(movieEntity: MovieEntity) {
-        tv_title.text = movieEntity.title
-        tv_category.text = movieEntity.category
-        tv_rating.text = movieEntity.rating
-        tv_release.text = movieEntity.release
-        tv_overview.text = movieEntity.overview
-
-        Glide.with(this)
-            .load(movieEntity.image)
-            .apply(
-                RequestOptions.placeholderOf(R.drawable.ic_default_glide)
-                    .error(R.drawable.ic_default_glide))
-            .into(iv_image_detail)
-
-        Glide.with(this)
-            .load(movieEntity.image)
-            .apply(
-                RequestOptions.placeholderOf(R.drawable.ic_default_glide)
-                    .error(R.drawable.ic_default_glide))
-            .into(iv_back_image_detail)
     }
 
     companion object {

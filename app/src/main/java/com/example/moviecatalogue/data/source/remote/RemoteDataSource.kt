@@ -1,13 +1,15 @@
 package com.example.moviecatalogue.data.source.remote
 
+import com.example.moviecatalogue.data.MovieEntity
 import com.example.moviecatalogue.data.source.remote.response.MovieResponse
 import com.example.moviecatalogue.utils.JsonHelper
+import com.example.moviecatalogue.utils.api.ApiConfig
 
 class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
 
-    fun getAllMovies(): List<MovieResponse> = jsonHelper.loadMovies()
+    fun getAllMovies(): List<MovieEntity> = jsonHelper.loadMovies()
 
-    fun getAllTv(): List<MovieResponse> = jsonHelper.loadTv()
+    fun getAllTv(): List<MovieEntity> = jsonHelper.loadTv()
 
     companion object {
         @Volatile

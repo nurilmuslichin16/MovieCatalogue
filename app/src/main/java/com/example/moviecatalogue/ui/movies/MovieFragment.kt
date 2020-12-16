@@ -29,10 +29,15 @@ class MovieFragment : Fragment() {
         if (activity != null) {
             val factory = ViewModelFactory.getInstance(requireActivity())
             val viewModel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
-            val movies = viewModel.getMovies()
 
             val academyAdapter = MovieAdapter()
-            academyAdapter.setMovies(movies)
+
+            progress_bar_movies.visibility = View.VISIBLE
+            viewModel.getMovies().observe(requireActivity(), {movies ->
+                progress_bar_movies.visibility = View.GONE
+                academyAdapter.setMovies(movies)
+                academyAdapter.notifyDataSetChanged()
+            })
 
             with(rv_movies) {
                 layoutManager = LinearLayoutManager(context)

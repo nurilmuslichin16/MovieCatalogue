@@ -8,15 +8,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.moviecatalogue.R
-import com.example.moviecatalogue.data.MovieEntity
+import com.example.moviecatalogue.data.source.remote.response.MovieResponse
 import com.example.moviecatalogue.ui.detail.DetailActivity
 import kotlinx.android.synthetic.main.item_movies.view.*
 
 class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
-    private var listMovies = ArrayList<MovieEntity>()
+    private var listMovies = ArrayList<MovieResponse>()
 
-    fun setMovies(movies: List<MovieEntity>?) {
+    fun setMovies(movies: List<MovieResponse>?) {
         if (movies == null) return
         listMovies.clear()
         listMovies.addAll(movies)
@@ -35,12 +35,12 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     override fun getItemCount(): Int = listMovies.size
 
     class MovieViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        fun bind(movie: MovieEntity) {
+        fun bind(movie: MovieResponse) {
             with(itemView) {
                 tv_item_title.text = movie.title
                 tv_item_years.text = movie.years
-                tv_item_rating.text = movie.rating
-                tv_item_category.text = movie.category
+                tv_item_rating.text = movie.rating.toString()
+                tv_item_category.text = movie.category.toString()
                 setOnClickListener {
                     val intent = Intent(context, DetailActivity::class.java).apply {
                         putExtra(DetailActivity.EXTRA_DETAIL, movie.movieId)
@@ -49,7 +49,7 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
                     context.startActivity(intent)
                 }
                 Glide.with(context)
-                    .load(movie.image)
+                    .load("https://image.tmdb.org/t/p/w500" + movie.image)
                     .apply(
                         RequestOptions.placeholderOf(R.drawable.ic_default_glide)
                             .error(R.drawable.ic_default_glide))

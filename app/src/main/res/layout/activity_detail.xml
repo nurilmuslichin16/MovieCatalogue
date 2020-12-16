@@ -22,7 +22,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/poster_film_alita"
-                android:alpha="0.75"
                 android:scaleType="matrix"
                 android:contentDescription="@string/cd_back_image_detail"/>
 

@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class MovieResponse (
+data class TvResponse (
         var movieId: Int,
         var image: String,
         var title: String,

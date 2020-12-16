@@ -30,10 +30,15 @@ class TvFragment : Fragment() {
         if (activity != null) {
             val factory = ViewModelFactory.getInstance(requireActivity())
             val viewModel = ViewModelProvider(this, factory)[TvViewModel::class.java]
-            val tv = viewModel.getTv()
 
             val academyAdapter = TvAdapter()
-            academyAdapter.setTv(tv)
+
+            progress_bar_tv.visibility = View.VISIBLE
+            viewModel.getTv().observe(requireActivity(), {tv ->
+                progress_bar_tv.visibility = View.GONE
+                academyAdapter.setTv(tv)
+                academyAdapter.notifyDataSetChanged()
+            })
 
             with(rv_tv) {
                 layoutManager = LinearLayoutManager(context)
