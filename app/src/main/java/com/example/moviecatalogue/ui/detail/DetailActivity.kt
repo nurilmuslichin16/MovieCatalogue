@@ -2,6 +2,7 @@ package com.example.moviecatalogue.ui.detail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -23,6 +24,7 @@ class DetailActivity : AppCompatActivity() {
             finish()
         }
 
+        progress_bar_detail.visibility = View.VISIBLE
         val extras = intent.extras
         if (extras != null) {
             val movieId = extras.getInt(EXTRA_DETAIL, 0)
@@ -50,6 +52,7 @@ class DetailActivity : AppCompatActivity() {
                                         RequestOptions.placeholderOf(R.drawable.ic_default_glide)
                                                 .error(R.drawable.ic_default_glide))
                                 .into(iv_back_image_detail)
+                        progress_bar_detail.visibility = View.GONE
                     })
                 } else {
                     viewModel.getTv().observe(this, {tv ->
@@ -72,6 +75,7 @@ class DetailActivity : AppCompatActivity() {
                                         RequestOptions.placeholderOf(R.drawable.ic_default_glide)
                                                 .error(R.drawable.ic_default_glide))
                                 .into(iv_back_image_detail)
+                        progress_bar_detail.visibility = View.GONE
                     })
                 }
             }

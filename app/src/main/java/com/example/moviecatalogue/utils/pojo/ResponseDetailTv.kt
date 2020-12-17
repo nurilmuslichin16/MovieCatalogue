@@ -125,7 +125,7 @@ data class LastEpisodeToAir(
 	val episodeNumber: Int,
 
 	@field:SerializedName("vote_average")
-	val voteAverage: Int,
+	val voteAverage: Double,
 
 	@field:SerializedName("name")
 	val name: String,
