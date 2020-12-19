@@ -3,6 +3,7 @@ package com.example.moviecatalogue.data.source
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.moviecatalogue.BuildConfig
 import com.example.moviecatalogue.data.source.remote.RemoteDataSource
 import com.example.moviecatalogue.data.source.remote.response.MovieResponse
 import com.example.moviecatalogue.data.source.remote.response.TvResponse
@@ -15,7 +16,7 @@ import retrofit2.Response
 
 class MovieRepository private constructor(private val remoteDataSource: RemoteDataSource): MovieDataSource {
 
-    val api: String = "b179796c705d7efea1a2bea1c4217a3f"
+    private val api: String = BuildConfig.API_KEY
 
     override fun getAllMovies(): LiveData<List<MovieResponse>> {
         val movieResults = MutableLiveData<List<MovieResponse>>()
