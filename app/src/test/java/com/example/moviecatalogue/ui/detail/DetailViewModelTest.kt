@@ -23,7 +23,7 @@ class DetailViewModelTest {
 
     private lateinit var viewModel: DetailViewModel
 
-    private val dummyMovie = DataDummy.generateDummyResponeMovie()[0]
+    private val dummyMovie = DataDummy.generateDummyResponseMovie()[0]
     private val movieId = dummyMovie.movieId
 
     private val dummyTv = DataDummy.generateDummyResponseTv()[0]

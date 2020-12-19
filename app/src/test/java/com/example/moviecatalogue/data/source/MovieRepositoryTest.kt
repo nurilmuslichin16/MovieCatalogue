@@ -2,7 +2,6 @@ package com.example.moviecatalogue.data.source
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
-import com.example.moviecatalogue.data.source.remote.RemoteDataSource
 import com.example.moviecatalogue.data.source.remote.response.MovieResponse
 import com.example.moviecatalogue.data.source.remote.response.TvResponse
 import com.example.moviecatalogue.ui.FakeMovieRepository
@@ -14,7 +13,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
@@ -28,8 +26,8 @@ class MovieRepositoryTest {
     @Mock
     private val movieRepository = FakeMovieRepository()
 
-    private val movieResponse = DataDummy.generateDummyResponeMovie()
-    private val movieDetailResponse = DataDummy.generateDummyResponeMovie()[0]
+    private val movieResponse = DataDummy.generateDummyResponseMovie()
+    private val movieDetailResponse = DataDummy.generateDummyResponseMovie()[0]
     private val movieId = movieResponse[0].movieId
 
     private val tvResponse = DataDummy.generateDummyResponseTv()

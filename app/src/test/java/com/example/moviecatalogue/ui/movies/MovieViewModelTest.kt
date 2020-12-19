@@ -38,7 +38,7 @@ class MovieViewModelTest {
 
     @Test
     fun testGetMovies() {
-        val dummyMovies = DataDummy.generateDummyResponeMovie()
+        val dummyMovies = DataDummy.generateDummyResponseMovie()
         val movies = MutableLiveData<List<MovieResponse>>()
         movies.value = dummyMovies
 

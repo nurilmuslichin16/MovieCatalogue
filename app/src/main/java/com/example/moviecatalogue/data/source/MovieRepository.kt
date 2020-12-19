@@ -7,6 +7,7 @@ import com.example.moviecatalogue.data.MovieEntity
 import com.example.moviecatalogue.data.source.remote.RemoteDataSource
 import com.example.moviecatalogue.data.source.remote.response.MovieResponse
 import com.example.moviecatalogue.data.source.remote.response.TvResponse
+import com.example.moviecatalogue.utils.EspressoIdlingResources
 import com.example.moviecatalogue.utils.api.ApiConfig
 import com.example.moviecatalogue.utils.pojo.*
 import retrofit2.Call
@@ -19,6 +20,8 @@ class MovieRepository private constructor(private val remoteDataSource: RemoteDa
 
     override fun getAllMovies(): LiveData<List<MovieResponse>> {
         val movieResults = MutableLiveData<List<MovieResponse>>()
+
+        EspressoIdlingResources.increment()
 
         val client = ApiConfig.getApiService().getMovieTopRated(api)
         client.enqueue(object : Callback<ResponseMovieTopRated> {
@@ -42,6 +45,8 @@ class MovieRepository private constructor(private val remoteDataSource: RemoteDa
                         }
 
                         movieResults.postValue(movieList)
+
+                        EspressoIdlingResources.decrement()
                     }
                 } else {
                     Log.d("MovieRepository", "onFailure: ${response.message()}")
@@ -58,6 +63,8 @@ class MovieRepository private constructor(private val remoteDataSource: RemoteDa
 
     override fun getAllTv(): LiveData<List<TvResponse>> {
         val tvResults = MutableLiveData<List<TvResponse>>()
+
+        EspressoIdlingResources.increment()
 
         val client = ApiConfig.getApiService().getTvTopRated(api)
         client.enqueue(object : Callback<ResponseTvTopRated> {
@@ -81,6 +88,8 @@ class MovieRepository private constructor(private val remoteDataSource: RemoteDa
                             tvList.add(tv)
                         }
                         tvResults.postValue(tvList)
+
+                        EspressoIdlingResources.decrement()
                     }
                 } else {
                     Log.d("MovieRepository", "onFailure: ${response.message()}")
@@ -97,6 +106,8 @@ class MovieRepository private constructor(private val remoteDataSource: RemoteDa
 
     override fun getDetailMovie(movie_id: Int): LiveData<MovieResponse> {
         val movieResult = MutableLiveData<MovieResponse>()
+
+        EspressoIdlingResources.increment()
 
         val client = ApiConfig.getApiService().getDetailMovie(movie_id, api)
         client.enqueue(object : Callback<ResponseDetailMovie> {
@@ -116,6 +127,8 @@ class MovieRepository private constructor(private val remoteDataSource: RemoteDa
                         )
 
                         movieResult.postValue(movie)
+
+                        EspressoIdlingResources.decrement()
                     }
                 }
             }
@@ -159,6 +172,8 @@ class MovieRepository private constructor(private val remoteDataSource: RemoteDa
     override fun getDetailTv(tv_id: Int): LiveData<TvResponse> {
         val tvResult = MutableLiveData<TvResponse>()
 
+        EspressoIdlingResources.increment()
+
         val client = ApiConfig.getApiService().getDetailTv(tv_id, api)
         client.enqueue(object : Callback<ResponseDetailTv> {
             override fun onResponse(call: Call<ResponseDetailTv>, response: Response<ResponseDetailTv>) {
@@ -173,10 +188,12 @@ class MovieRepository private constructor(private val remoteDataSource: RemoteDa
                                 tvResponse.voteAverage,
                                 checkGenre(tvResponse.genres),
                                 tvResponse.overview,
-                                tvResponse.lastAirDate
+                                tvResponse.firstAirDate
                         )
 
                         tvResult.postValue(movie)
+
+                        EspressoIdlingResources.decrement()
                     }
                 }
             }
