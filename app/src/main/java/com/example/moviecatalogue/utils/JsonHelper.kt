@@ -2,7 +2,6 @@ package com.example.moviecatalogue.utils
 
 import android.content.Context
 import com.example.moviecatalogue.data.MovieEntity
-import com.example.moviecatalogue.data.source.remote.response.MovieResponse
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException

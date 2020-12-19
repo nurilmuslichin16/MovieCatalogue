@@ -46,8 +46,4 @@ class MovieFragment : Fragment() {
             }
         }
     }
-
-    companion object {
-
-    }
 }

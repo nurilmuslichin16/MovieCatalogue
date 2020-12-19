@@ -1,9 +1,7 @@
 package com.example.moviecatalogue.data.source.remote
 
 import com.example.moviecatalogue.data.MovieEntity
-import com.example.moviecatalogue.data.source.remote.response.MovieResponse
 import com.example.moviecatalogue.utils.JsonHelper
-import com.example.moviecatalogue.utils.api.ApiConfig
 
 class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
 

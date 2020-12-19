@@ -3,10 +3,7 @@ package com.example.moviecatalogue.ui
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.moviecatalogue.data.MovieEntity
 import com.example.moviecatalogue.data.source.MovieDataSource
-import com.example.moviecatalogue.data.source.MovieRepository
-import com.example.moviecatalogue.data.source.remote.RemoteDataSource
 import com.example.moviecatalogue.data.source.remote.response.MovieResponse
 import com.example.moviecatalogue.data.source.remote.response.TvResponse
 import com.example.moviecatalogue.utils.api.ApiConfig

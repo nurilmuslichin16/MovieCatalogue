@@ -47,8 +47,4 @@ class TvFragment : Fragment() {
             }
         }
     }
-
-    companion object {
-
-    }
 }
