@@ -1,5 +1,6 @@
 package com.example.moviecatalogue.ui.movies
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -35,12 +36,13 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     override fun getItemCount(): Int = listMovies.size
 
     class MovieViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+        @SuppressLint("SetTextI18n")
         fun bind(movie: MovieResponse) {
             with(itemView) {
                 tv_item_title.text = movie.title
                 tv_item_years.text = movie.years
                 tv_item_rating.text = movie.rating.toString()
-                tv_item_category.text = movie.category.toString()
+                tv_item_overview.text = movie.overview.substring(0,100) + "..."
                 setOnClickListener {
                     val intent = Intent(context, DetailActivity::class.java).apply {
                         putExtra(DetailActivity.EXTRA_DETAIL, movie.movieId)

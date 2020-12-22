@@ -51,10 +51,24 @@ class HomeActivityTest{
     @Test
     fun loadDetailMovie() {
         onView(withId(R.id.rv_movies)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+
+        onView(withId(R.id.iv_image_detail)).check(matches(isDisplayed()))
+        onView(withId(R.id.iv_image_detail)).check(matches(withText(dummyMovie[0].image)))
+        onView(withId(R.id.iv_image_detail)).check(matches(withResourceName(dummyMovie[0].image)))
+
+        onView(withId(R.id.iv_back_image_detail)).check(matches(isDisplayed()))
+        onView(withId(R.id.iv_back_image_detail)).check(matches(withText(dummyMovie[0].image)))
+        onView(withId(R.id.iv_back_image_detail)).check(matches(withResourceName(dummyMovie[0].image)))
+
         onView(withId(R.id.tv_title)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_title)).check(matches(withText(dummyMovie[0].title)))
+
         onView(withId(R.id.tv_category)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_category)).check(matches(withText(dummyMovie[0].category)))
+
+        onView(withId(R.id.tv_overview)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_overview)).check(matches(withText(dummyMovie[0].overview)))
+
         onView(withId(R.id.tv_release)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_release)).check(matches(withText(dummyMovie[0].release)))
     }
@@ -63,10 +77,22 @@ class HomeActivityTest{
     fun loadDetailTv() {
         onView(withText("TV Show")).perform(click())
         onView(withId(R.id.rv_tv)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+
+        onView(withId(R.id.iv_image_detail)).check(matches(isDisplayed()))
+        onView(withId(R.id.iv_image_detail)).check(matches(withResourceName(dummyTv[0].image)))
+
+        onView(withId(R.id.iv_back_image_detail)).check(matches(isDisplayed()))
+        onView(withId(R.id.iv_back_image_detail)).check(matches(withResourceName(dummyTv[0].image)))
+
         onView(withId(R.id.tv_title)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_title)).check(matches(withText(dummyTv[0].title)))
+
         onView(withId(R.id.tv_category)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_category)).check(matches(withText(dummyTv[0].category)))
+
+        onView(withId(R.id.tv_overview)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_overview)).check(matches(withText(dummyTv[0].overview)))
+
         onView(withId(R.id.tv_release)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_release)).check(matches(withText(dummyTv[0].release)))
     }

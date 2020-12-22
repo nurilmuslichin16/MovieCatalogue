@@ -1,5 +1,6 @@
 package com.example.moviecatalogue.ui.tvshows
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -35,12 +36,13 @@ class TvAdapter: RecyclerView.Adapter<TvAdapter.TvViewHolder>() {
     override fun getItemCount(): Int = listTv.size
 
     class TvViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+        @SuppressLint("SetTextI18n")
         fun bind(tv: TvResponse) {
             with(itemView) {
                 tv_item_title.text = tv.title
                 tv_item_years.text = tv.years
                 tv_item_rating.text = tv.rating.toString()
-                tv_item_category.text = tv.category.toString()
+                tv_item_overview.text = tv.overview.substring(0,100) + "..."
                 setOnClickListener {
                     val intent = Intent(context, DetailActivity::class.java).apply {
                         putExtra(DetailActivity.EXTRA_DETAIL, tv.movieId)

@@ -12,22 +12,22 @@ object DataDummy {
 
         val courses = ArrayList<MovieResponse>()
 
-        courses.add(MovieResponse(765123,
-            "https://image.tmdb.org/t/p/w600_and_h900_bestv2/zMcEalkxEiRjvmijliLBk0sYern.jpg",
-            "Christmas Crossfire",
+        courses.add(MovieResponse(553604,
+            "https://image.tmdb.org/t/p/w600_and_h900_bestv2/zeD4PabP6099gpE0STWJrJrCBCs.jpg",
+            "Honest Thief",
             "2020",
-            5.0,
-            "Comedy, Crime, Thriller",
-            "A man foils an attempted murder, then flees the crew of would-be killers along with their intended target as a woman he's just met tries to find him.",
-            "2020-12-04"))
+                7.1,
+                "Action, Thriller, Crime, Drama",
+            "A bank robber tries to turn himself in because he's falling in love and wants to live an honest life...but when he realizes the Feds are more corrupt than him, he must fight back to clear his name.",
+            "2020-09-03"))
 
-        courses.add(MovieResponse(590706,
-            "https://image.tmdb.org/t/p/w600_and_h900_bestv2/eLT8Cu357VOwBVTitkmlDEg32Fs.jpg",
-            "Jiu Jitsu",
+        courses.add(MovieResponse(646593,
+            "https://image.tmdb.org/t/p/w600_and_h900_bestv2/2AwPvNHphpZBJDqjZKVuMAbvS0v.jpg",
+            "Wander",
             "2020",
-                5.8,
-            "Action, Fantasy, Science Fiction",
-            "Every six years, an ancient order of jiu-jitsu fighters joins forces to battle a vicious race of alien invaders. But when a celebrated war hero goes down in defeat, the fate of the planet and mankind hangs in the balance.",
+                5.6,
+            "Thriller, Crime, Mystery",
+            "After getting hired to probe a suspicious death in the small town of Wander, a mentally unstable private investigator becomes convinced the case is linked to the same 'conspiracy cover up' that caused the death of his daughter.",
             "2020-11-20"))
 
         return courses
@@ -38,7 +38,7 @@ object DataDummy {
         val tv = ArrayList<TvResponse>()
 
         tv.add(TvResponse(82856,
-            "https://image.tmdb.org/t/p/w600_and_h900_bestv2/non7AnwMaloVU0OtenLqKyq8Zg3.jpg",
+            "https://image.tmdb.org/t/p/w600_and_h900_bestv2/sWgBv7LV2PRoQgkxwlibdGXKz1S.jpg",
             "The Mandalorian",
             "2019",
                 8.5,
@@ -46,14 +46,14 @@ object DataDummy {
             "The Mandalorian and his allies attempt a daring rescue.",
             "2019-11-12"))
 
-        tv.add(TvResponse(97180,
-            "https://image.tmdb.org/t/p/w600_and_h900_bestv2/mYsWyfiIMxx4HDm0Wck7oJ9ckez.jpg",
-            "Selena: The Series",
-            "2020",
+        tv.add(TvResponse(71712,
+            "https://image.tmdb.org/t/p/w600_and_h900_bestv2/6tfT03sGp9k4c0J3dypjrI8TSAI.jpg",
+            "The Good Doctor",
+            "2017",
             7.5,
             "Drama",
-            "Selena feels conflicted about her secret relationship with Chris. Meanwhile, AB finds inspiration in a memory of a plastic flower and lost love.",
-            "2020-12-04"))
+            "A young surgeon with Savant syndrome is recruited into the surgical unit of a prestigious hospital. The question will arise: can a person who doesn't have the ability to relate to people actually save their lives?",
+            "2017-09-25"))
 
         return tv
     }

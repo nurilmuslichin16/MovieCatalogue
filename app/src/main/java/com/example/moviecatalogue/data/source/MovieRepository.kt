@@ -31,11 +31,17 @@ class MovieRepository private constructor(private val remoteDataSource: RemoteDa
                     if (movieResponse != null) {
                         val movieList = ArrayList<MovieResponse>()
                         for (responseItem in movieResponse) {
+                            var years: String = ""
+                            years = if (responseItem.releaseDate.isEmpty()) {
+                                ""
+                            } else {
+                                responseItem.releaseDate.substring(0,4)
+                            }
                             val movie = MovieResponse(
                                     responseItem.id,
                                     responseItem.posterPath,
                                     responseItem.title,
-                                    responseItem.releaseDate.substring(0,4),
+                                    years,
                                     responseItem.voteAverage,
                                     "-",
                                     responseItem.overview,
@@ -74,11 +80,17 @@ class MovieRepository private constructor(private val remoteDataSource: RemoteDa
                     if (tvResponses != null) {
                         val tvList = ArrayList<TvResponse>()
                         for (responseItem in tvResponses) {
+                            var years: String = ""
+                            years = if (responseItem.firstAirDate.isEmpty()) {
+                                ""
+                            } else {
+                                responseItem.firstAirDate.substring(0,4)
+                            }
                             val tv = TvResponse(
                                     responseItem.id,
                                     responseItem.posterPath,
                                     responseItem.originalName,
-                                    responseItem.firstAirDate.substring(0,4),
+                                    years,
                                     responseItem.voteAverage,
                                     "-",
                                     responseItem.overview,
@@ -115,11 +127,17 @@ class MovieRepository private constructor(private val remoteDataSource: RemoteDa
                 if (response.isSuccessful) {
                     val movieResponse = response.body()
                     if (movieResponse != null) {
+                        var years: String = ""
+                        years = if (movieResponse.releaseDate.isEmpty()) {
+                            ""
+                        } else {
+                            movieResponse.releaseDate.substring(0,4)
+                        }
                         val movie = MovieResponse(
                                 movieResponse.id,
                                 movieResponse.posterPath,
                                 movieResponse.title,
-                                movieResponse.releaseDate.substring(0,4),
+                                years,
                                 movieResponse.voteAverage,
                                 checkGenre(movieResponse.genres),
                                 movieResponse.overview,
@@ -180,11 +198,17 @@ class MovieRepository private constructor(private val remoteDataSource: RemoteDa
                 if (response.isSuccessful) {
                     val tvResponse = response.body()
                     if (tvResponse != null) {
+                        var years: String = ""
+                        years = if (tvResponse.lastAirDate.isEmpty()) {
+                            ""
+                        } else {
+                            tvResponse.lastAirDate.substring(0,4)
+                        }
                         val movie = TvResponse(
                                 tvResponse.id,
                                 tvResponse.posterPath,
                                 tvResponse.originalName,
-                                tvResponse.lastAirDate.substring(0,4),
+                                years,
                                 tvResponse.voteAverage,
                                 checkGenre(tvResponse.genres),
                                 tvResponse.overview,
