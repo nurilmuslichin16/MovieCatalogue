@@ -50,15 +50,11 @@ class HomeActivityTest{
 
     @Test
     fun loadDetailMovie() {
-        onView(withId(R.id.rv_movies)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+        onView(withId(R.id.rv_movies)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(1, click()))
 
         onView(withId(R.id.iv_image_detail)).check(matches(isDisplayed()))
-        onView(withId(R.id.iv_image_detail)).check(matches(withText(dummyMovie[0].image)))
-        onView(withId(R.id.iv_image_detail)).check(matches(withResourceName(dummyMovie[0].image)))
 
         onView(withId(R.id.iv_back_image_detail)).check(matches(isDisplayed()))
-        onView(withId(R.id.iv_back_image_detail)).check(matches(withText(dummyMovie[0].image)))
-        onView(withId(R.id.iv_back_image_detail)).check(matches(withResourceName(dummyMovie[0].image)))
 
         onView(withId(R.id.tv_title)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_title)).check(matches(withText(dummyMovie[0].title)))
@@ -79,10 +75,8 @@ class HomeActivityTest{
         onView(withId(R.id.rv_tv)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
 
         onView(withId(R.id.iv_image_detail)).check(matches(isDisplayed()))
-        onView(withId(R.id.iv_image_detail)).check(matches(withResourceName(dummyTv[0].image)))
 
         onView(withId(R.id.iv_back_image_detail)).check(matches(isDisplayed()))
-        onView(withId(R.id.iv_back_image_detail)).check(matches(withResourceName(dummyTv[0].image)))
 
         onView(withId(R.id.tv_title)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_title)).check(matches(withText(dummyTv[0].title)))

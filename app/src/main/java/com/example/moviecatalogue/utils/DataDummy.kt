@@ -43,7 +43,7 @@ object DataDummy {
             "2019",
                 8.5,
             "Sci-Fi & Fantasy, Action & Adventure",
-            "The Mandalorian and his allies attempt a daring rescue.",
+            "After the fall of the Galactic Empire, lawlessness has spread throughout the galaxy. A lone gunfighter makes his way through the outer reaches, earning his keep as a bounty hunter.",
             "2019-11-12"))
 
         tv.add(TvResponse(71712,
