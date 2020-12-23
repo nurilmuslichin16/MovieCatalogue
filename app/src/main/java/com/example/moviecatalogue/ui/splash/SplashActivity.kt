@@ -9,7 +9,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class SplashScreen : AppCompatActivity() {
+class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
@@ -18,7 +18,7 @@ class SplashScreen : AppCompatActivity() {
 
         GlobalScope.launch {
             delay(3000L)
-            val toHome = Intent(this@SplashScreen, HomeActivity::class.java)
+            val toHome = Intent(this@SplashActivity, HomeActivity::class.java)
             startActivity(toHome)
             finish()
         }

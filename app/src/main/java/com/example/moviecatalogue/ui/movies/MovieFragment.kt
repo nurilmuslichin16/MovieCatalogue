@@ -33,7 +33,7 @@ class MovieFragment : Fragment() {
             val academyAdapter = MovieAdapter()
 
             progress_bar_movies.visibility = View.VISIBLE
-            viewModel.getMovies().observe(requireActivity(), {movies ->
+            viewModel.getMovies().observe(viewLifecycleOwner, {movies ->
                 progress_bar_movies.visibility = View.GONE
                 academyAdapter.setMovies(movies)
                 academyAdapter.notifyDataSetChanged()

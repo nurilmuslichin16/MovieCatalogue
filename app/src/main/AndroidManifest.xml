@@ -13,7 +13,7 @@
         android:theme="@style/Theme.MovieCatalogue">
         <activity android:name=".ui.detail.DetailActivity" />
         <activity android:name=".ui.home.HomeActivity" />
-        <activity android:name=".ui.splash.SplashScreen">
+        <activity android:name=".ui.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

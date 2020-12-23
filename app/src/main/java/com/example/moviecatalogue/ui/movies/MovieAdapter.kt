@@ -18,7 +18,7 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     private var listMovies = ArrayList<MovieResponse>()
 
     fun setMovies(movies: List<MovieResponse>?) {
-        if (movies == null) return
+        if (movies.isNullOrEmpty()) return
         listMovies.clear()
         listMovies.addAll(movies)
     }
@@ -38,11 +38,23 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     class MovieViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         @SuppressLint("SetTextI18n")
         fun bind(movie: MovieResponse) {
+            var overview = ""
+            overview = when {
+                movie.overview == "" -> {
+                    "-"
+                }
+                movie.overview.length <= 100 -> {
+                    movie.overview.substring(0,50) + "..."
+                }
+                else -> {
+                    movie.overview.substring(0,100) + "..."
+                }
+            }
             with(itemView) {
                 tv_item_title.text = movie.title
                 tv_item_years.text = movie.years
                 tv_item_rating.text = movie.rating.toString()
-                tv_item_overview.text = movie.overview.substring(0,100) + "..."
+                tv_item_overview.text = overview
                 setOnClickListener {
                     val intent = Intent(context, DetailActivity::class.java).apply {
                         putExtra(DetailActivity.EXTRA_DETAIL, movie.movieId)

@@ -30,7 +30,7 @@ class DetailActivity : AppCompatActivity() {
             val movieId = extras.getInt(EXTRA_DETAIL, 0)
             if (movieId != 0) {
                 viewModel.setSelectedMovie(movieId)
-                val type = extras.getString(EXTRA_TYPE).toString()
+                val type = extras.getString(EXTRA_TYPE)
                 if (type == "movie") {
                     viewModel.getMovie().observe(this, {movie ->
                         tv_title.text = movie.title
