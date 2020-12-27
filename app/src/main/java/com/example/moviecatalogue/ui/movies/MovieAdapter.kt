@@ -9,15 +9,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.moviecatalogue.R
+import com.example.moviecatalogue.data.source.local.entity.RMovieEntity
 import com.example.moviecatalogue.data.source.remote.response.MovieResponse
 import com.example.moviecatalogue.ui.detail.DetailActivity
 import kotlinx.android.synthetic.main.item_movies.view.*
 
 class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
-    private var listMovies = ArrayList<MovieResponse>()
+    private var listMovies = ArrayList<RMovieEntity>()
 
-    fun setMovies(movies: List<MovieResponse>?) {
+    fun setMovies(movies: List<RMovieEntity>?) {
         if (movies.isNullOrEmpty()) return
         listMovies.clear()
         listMovies.addAll(movies)
@@ -37,13 +38,16 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     class MovieViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         @SuppressLint("SetTextI18n")
-        fun bind(movie: MovieResponse) {
+        fun bind(movie: RMovieEntity) {
             var overview = ""
             overview = when {
                 movie.overview == "" -> {
                     "-"
                 }
-                movie.overview.length <= 100 -> {
+                movie.overview.length < 50 -> {
+                    movie.overview.substring(0,30) + "..."
+                }
+                movie.overview.length < 100 -> {
                     movie.overview.substring(0,50) + "..."
                 }
                 else -> {

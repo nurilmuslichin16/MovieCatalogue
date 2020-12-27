@@ -9,15 +9,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.moviecatalogue.R
+import com.example.moviecatalogue.data.source.local.entity.RTvEntity
 import com.example.moviecatalogue.data.source.remote.response.TvResponse
 import com.example.moviecatalogue.ui.detail.DetailActivity
 import kotlinx.android.synthetic.main.item_tv.view.*
 
 class TvAdapter: RecyclerView.Adapter<TvAdapter.TvViewHolder>() {
 
-    private var listTv = ArrayList<TvResponse>()
+    private var listTv = ArrayList<RTvEntity>()
 
-    fun setTv(tv: List<TvResponse>?) {
+    fun setTv(tv: List<RTvEntity>?) {
         if (tv.isNullOrEmpty()) return
         listTv.clear()
         listTv.addAll(tv)
@@ -37,13 +38,16 @@ class TvAdapter: RecyclerView.Adapter<TvAdapter.TvViewHolder>() {
 
     class TvViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         @SuppressLint("SetTextI18n")
-        fun bind(tv: TvResponse) {
+        fun bind(tv: RTvEntity) {
             var overview = ""
             overview = when {
                 tv.overview == "" -> {
                     "-"
                 }
-                tv.overview.length <= 100 -> {
+                tv.overview.length < 50 -> {
+                    tv.overview.substring(0,30) + "..."
+                }
+                tv.overview.length < 100 -> {
                     tv.overview.substring(0,50) + "..."
                 }
                 else -> {

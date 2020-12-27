@@ -15,6 +15,8 @@ class LocalDataSource private constructor(private val mMovieDao: MovieDao) {
 
     fun insertMovies(movies: List<RMovieEntity>) = mMovieDao.insertMovies(movies)
 
+    fun insertMovieDetail(movies: RMovieEntity) = mMovieDao.insertMovieDetail(movies)
+
     fun setFavoriteMovie(movie: RMovieEntity, isFavorite: Boolean) {
         movie.isFavorite = isFavorite
         mMovieDao.updateMovie(movie)
@@ -27,6 +29,8 @@ class LocalDataSource private constructor(private val mMovieDao: MovieDao) {
     fun getDetailTv(movieId: Int): LiveData<RTvEntity> = mMovieDao.getTvId(movieId)
 
     fun insertTv(tv: List<RTvEntity>) = mMovieDao.insertTv(tv)
+
+    fun insertTvDetail(tv: RTvEntity) = mMovieDao.insertTvDetail(tv)
 
     fun setFavoriteTv(tv: RTvEntity, isFavorite: Boolean) {
         tv.isFavorite = isFavorite

@@ -19,6 +19,9 @@ interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMovies(movies: List<RMovieEntity>)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertMovieDetail(movies: RMovieEntity)
+
     @Update
     fun updateMovie(movie: RMovieEntity)
 
@@ -32,6 +35,9 @@ interface MovieDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertTv(tv: List<RTvEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertTvDetail(tv: RTvEntity)
 
     @Update
     fun updateTv(tv: RTvEntity)

@@ -4,11 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.moviecatalogue.BuildConfig
-import com.example.moviecatalogue.data.MovieEntity
 import com.example.moviecatalogue.data.source.remote.response.MovieResponse
 import com.example.moviecatalogue.data.source.remote.response.TvResponse
 import com.example.moviecatalogue.utils.EspressoIdlingResources
-import com.example.moviecatalogue.utils.JsonHelper
 import com.example.moviecatalogue.utils.api.ApiConfig
 import com.example.moviecatalogue.utils.pojo.*
 import retrofit2.Call

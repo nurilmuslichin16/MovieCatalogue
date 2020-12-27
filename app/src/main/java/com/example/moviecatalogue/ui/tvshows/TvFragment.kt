@@ -5,10 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviecatalogue.R
 import com.example.moviecatalogue.viewmodel.ViewModelFactory
+import com.example.moviecatalogue.vo.Status
 import kotlinx.android.synthetic.main.fragment_tv.*
 
 class TvFragment : Fragment() {
@@ -31,19 +33,29 @@ class TvFragment : Fragment() {
             val factory = ViewModelFactory.getInstance(requireActivity())
             val viewModel = ViewModelProvider(this, factory)[TvViewModel::class.java]
 
-            val academyAdapter = TvAdapter()
+            val tvAdapter = TvAdapter()
 
-            progress_bar_tv.visibility = View.VISIBLE
             viewModel.getTv().observe(requireActivity(), {tv ->
-                progress_bar_tv.visibility = View.GONE
-                academyAdapter.setTv(tv)
-                academyAdapter.notifyDataSetChanged()
+                if (tv != null) {
+                    when (tv.status) {
+                        Status.LOADING -> progress_bar_tv.visibility = View.VISIBLE
+                        Status.SUCCESS -> {
+                            progress_bar_tv.visibility = View.GONE
+                            tvAdapter.setTv(tv.data)
+                            tvAdapter.notifyDataSetChanged()
+                        }
+                        Status.ERROR -> {
+                            progress_bar_tv.visibility = View.GONE
+                            Toast.makeText(context, "Terjadi Kesalahan", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
             })
 
             with(rv_tv) {
                 layoutManager = LinearLayoutManager(context)
                 setHasFixedSize(true)
-                this.adapter = academyAdapter
+                this.adapter = tvAdapter
             }
         }
     }
