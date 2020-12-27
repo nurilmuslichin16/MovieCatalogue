@@ -87,7 +87,7 @@ class MovieRepository private constructor(
                     localDataSource.getDetailMovie(movie_id)
 
             override fun shouldFetch(data: RMovieEntity?): Boolean =
-                    data == null
+                    data?.category == "-" || data == null
 
             public override fun createCall(): LiveData<ApiResponse<MovieResponse>> =
                     remoteDataSource.getDetailMovie(movie_id)
@@ -115,7 +115,7 @@ class MovieRepository private constructor(
                     localDataSource.getDetailTv(tv_id)
 
             override fun shouldFetch(data: RTvEntity?): Boolean =
-                    data == null
+                    data?.category == "-" || data == null
 
             public override fun createCall(): LiveData<ApiResponse<TvResponse>> =
                     remoteDataSource.getDetailTv(tv_id)
