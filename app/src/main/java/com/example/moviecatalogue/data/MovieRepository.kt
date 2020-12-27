@@ -4,269 +4,79 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.moviecatalogue.BuildConfig
+import com.example.moviecatalogue.data.source.local.LocalDataSource
+import com.example.moviecatalogue.data.source.local.entity.RMovieEntity
+import com.example.moviecatalogue.data.source.local.entity.RTvEntity
 import com.example.moviecatalogue.data.source.remote.ApiResponse
 import com.example.moviecatalogue.data.source.remote.RemoteDataSource
 import com.example.moviecatalogue.data.source.remote.response.MovieResponse
 import com.example.moviecatalogue.data.source.remote.response.TvResponse
+import com.example.moviecatalogue.utils.AppExecutors
 import com.example.moviecatalogue.utils.EspressoIdlingResources
 import com.example.moviecatalogue.utils.api.ApiConfig
 import com.example.moviecatalogue.utils.pojo.*
+import com.example.moviecatalogue.vo.Resource
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MovieRepository private constructor(private val remoteDataSource: RemoteDataSource):
-    MovieDataSource {
+class MovieRepository private constructor(
+    private val remoteDataSource: RemoteDataSource,
+    private val localDataSource: LocalDataSource,
+    private val appExecutors: AppExecutors)
+    : MovieDataSource {
 
-    private val api: String = BuildConfig.API_KEY
+    override fun getAllMovies(): LiveData<Resource<List<RMovieEntity>>> {
+        return object : NetworkBoundResource<List<RMovieEntity>, List<MovieResponse>>(appExecutors) {
+            public override fun loadFromDB(): LiveData<List<RMovieEntity>> =
+                localDataSource.getAllMovies()
 
-    override fun getAllMovies(): LiveData<ApiResponse<List<MovieResponse>>> {
-        val movieResults = MutableLiveData<ApiResponse<List<MovieResponse>>>()
+            override fun shouldFetch(data: List<RMovieEntity>?): Boolean =
+                data == null || data.isEmpty()
 
-        EspressoIdlingResources.increment()
+            public override fun createCall(): LiveData<ApiResponse<List<MovieResponse>>> =
+                remoteDataSource.getAllMovies()
 
-        val client = ApiConfig.getApiService().getMovieTopRated(api)
-        client.enqueue(object : Callback<ResponseMovieTopRated> {
-            override fun onResponse(call: Call<ResponseMovieTopRated>, response: Response<ResponseMovieTopRated>) {
-                if (response.isSuccessful) {
-                    val movieResponse = response.body()?.results
-                    if (movieResponse != null) {
-                        val movieList = ArrayList<MovieResponse>()
-                        for (responseItem in movieResponse) {
-                            var years: String = ""
-                            years = if (responseItem.releaseDate.isEmpty()) {
-                                ""
-                            } else {
-                                responseItem.releaseDate.substring(0,4)
-                            }
-                            val movie = MovieResponse(
-                                    responseItem.id,
-                                    responseItem.posterPath,
-                                    responseItem.title,
-                                    years,
-                                    responseItem.voteAverage,
-                                    "-",
-                                    responseItem.overview,
-                                    responseItem.releaseDate
-                            )
-                            movieList.add(movie)
-                        }
+            public override fun saveCallResult(movieResponses: List<MovieResponse>) {
+                val movieList = ArrayList<RMovieEntity>()
+                for (response in movieResponses) {
+                    val movie = RMovieEntity(
+                        response.movieId,
+                        response.image,
+                        response.title,
+                        response.years,
+                        response.rating,
+                        response.category,
+                        response.overview,
+                        response.release,
+                        false)
 
-                        movieResults.postValue(ApiResponse.success(movieList))
-
-                        EspressoIdlingResources.decrement()
-                    }
-                } else {
-                    Log.d("MovieRepository", "onFailure: ${response.message()}")
+                    movieList.add(movie)
                 }
+                localDataSource.insertMovies(movieList)
             }
-
-            override fun onFailure(call: Call<ResponseMovieTopRated>, t: Throwable) {
-                Log.d("MovieRepository", "onFailure: {${t.message.toString()}")
-            }
-        })
-
-        return movieResults
+        }.asLiveData()
     }
 
-    override fun getAllTv(): LiveData<ApiResponse<List<TvResponse>>> {
-        val tvResults = MutableLiveData<ApiResponse<List<TvResponse>>>()
+    override fun getAllTv(): LiveData<Resource<List<RTvEntity>>> {
 
-        EspressoIdlingResources.increment()
-
-        val client = ApiConfig.getApiService().getTvTopRated(api)
-        client.enqueue(object : Callback<ResponseTvTopRated> {
-            override fun onResponse(call: Call<ResponseTvTopRated>, response: Response<ResponseTvTopRated>) {
-                if (response.isSuccessful) {
-                    val tvResponses = response.body()?.results
-                    if (tvResponses != null) {
-                        val tvList = ArrayList<TvResponse>()
-                        for (responseItem in tvResponses) {
-                            var years: String = ""
-                            years = if (responseItem.firstAirDate.isEmpty()) {
-                                ""
-                            } else {
-                                responseItem.firstAirDate.substring(0,4)
-                            }
-                            val tv = TvResponse(
-                                    responseItem.id,
-                                    responseItem.posterPath,
-                                    responseItem.originalName,
-                                    years,
-                                    responseItem.voteAverage,
-                                    "-",
-                                    responseItem.overview,
-                                    responseItem.firstAirDate
-                            )
-
-                            tvList.add(tv)
-                        }
-                        tvResults.postValue(ApiResponse.success(tvList))
-
-                        EspressoIdlingResources.decrement()
-                    }
-                } else {
-                    Log.d("MovieRepository", "onFailure: ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<ResponseTvTopRated>, t: Throwable) {
-                Log.d("MovieRepository", "onFailure: {${t.message.toString()}")
-            }
-        })
-
-        return tvResults
     }
 
-    override fun getDetailMovie(movie_id: Int): LiveData<ApiResponse<MovieResponse>> {
-        val movieResult = MutableLiveData<ApiResponse<MovieResponse>>()
+    override fun getDetailMovie(movie_id: Int): LiveData<Resource<RMovieEntity>> {
 
-        EspressoIdlingResources.increment()
-
-        val client = ApiConfig.getApiService().getDetailMovie(movie_id, api)
-        client.enqueue(object : Callback<ResponseDetailMovie> {
-            override fun onResponse(call: Call<ResponseDetailMovie>, response: Response<ResponseDetailMovie>) {
-                if (response.isSuccessful) {
-                    val movieResponse = response.body()
-                    if (movieResponse != null) {
-                        var years: String = ""
-                        years = if (movieResponse.releaseDate.isEmpty()) {
-                            ""
-                        } else {
-                            movieResponse.releaseDate.substring(0,4)
-                        }
-                        val movie = MovieResponse(
-                                movieResponse.id,
-                                movieResponse.posterPath,
-                                movieResponse.title,
-                                years,
-                                movieResponse.voteAverage,
-                                checkGenre(movieResponse.genres),
-                                movieResponse.overview,
-                                movieResponse.releaseDate
-                        )
-
-                        movieResult.postValue(ApiResponse.success(movie))
-
-                        EspressoIdlingResources.decrement()
-                    }
-                }
-            }
-
-            private fun checkGenre(genre: List<GenresItem>): String {
-                var genreResult: String = ""
-                when {
-                    genre.size == 1 -> {
-                        for (item in genre) {
-                            genreResult = item.name
-                        }
-                    }
-                    genre.isNullOrEmpty() -> {
-                        genreResult = "-"
-                    }
-                    else -> {
-                        var no: Int = 0
-                        for (item in genre) {
-                            if (no == 0) {
-                                genreResult += item.name
-                                no++
-                            } else {
-                                genreResult += ", " + item.name
-                                no++
-                            }
-                        }
-                    }
-                }
-
-                return genreResult
-            }
-
-            override fun onFailure(call: Call<ResponseDetailMovie>, t: Throwable) {
-                Log.d("MovieRepository", "onFailure: {${t.message.toString()}")
-            }
-        })
-
-        return movieResult
     }
 
-    override fun getDetailTv(tv_id: Int): LiveData<ApiResponse<TvResponse>> {
-        val tvResult = MutableLiveData<ApiResponse<TvResponse>>()
+    override fun getDetailTv(tv_id: Int): LiveData<Resource<RTvEntity>> {
 
-        EspressoIdlingResources.increment()
-
-        val client = ApiConfig.getApiService().getDetailTv(tv_id, api)
-        client.enqueue(object : Callback<ResponseDetailTv> {
-            override fun onResponse(call: Call<ResponseDetailTv>, response: Response<ResponseDetailTv>) {
-                if (response.isSuccessful) {
-                    val tvResponse = response.body()
-                    if (tvResponse != null) {
-                        var years: String = ""
-                        years = if (tvResponse.lastAirDate.isEmpty()) {
-                            ""
-                        } else {
-                            tvResponse.lastAirDate.substring(0,4)
-                        }
-                        val movie = TvResponse(
-                                tvResponse.id,
-                                tvResponse.posterPath,
-                                tvResponse.originalName,
-                                years,
-                                tvResponse.voteAverage,
-                                checkGenre(tvResponse.genres),
-                                tvResponse.overview,
-                                tvResponse.firstAirDate
-                        )
-
-                        tvResult.postValue(ApiResponse.success(movie))
-
-                        EspressoIdlingResources.decrement()
-                    }
-                }
-            }
-
-            private fun checkGenre(genre: List<TvGenresItem>): String {
-                var genreResult: String = ""
-                when {
-                    genre.size == 1 -> {
-                        for (item in genre) {
-                            genreResult = item.name
-                        }
-                    }
-                    genre.isNullOrEmpty() -> {
-                        genreResult = "-"
-                    }
-                    else -> {
-                        var no: Int = 0
-                        for (item in genre) {
-                            if (no == 0) {
-                                genreResult += item.name
-                                no++
-                            } else {
-                                genreResult += ", " + item.name
-                                no++
-                            }
-                        }
-                    }
-                }
-
-                return genreResult
-            }
-
-            override fun onFailure(call: Call<ResponseDetailTv>, t: Throwable) {
-                Log.d("MovieRepository", "onFailure: {${t.message.toString()}")
-            }
-        })
-
-        return tvResult
     }
 
     companion object {
         @Volatile
         private var instance: MovieRepository? = null
 
-        fun getInstance(remoteData: RemoteDataSource): MovieRepository =
+        fun getInstance(remoteData: RemoteDataSource, localData: LocalDataSource, appExecutors: AppExecutors): MovieRepository =
                 instance ?: synchronized(this) {
-                    instance ?: MovieRepository(remoteData)
+                    instance ?: MovieRepository(remoteData, localData, appExecutors)
                 }
     }
 

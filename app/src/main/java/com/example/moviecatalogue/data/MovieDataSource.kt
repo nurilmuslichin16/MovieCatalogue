@@ -1,18 +1,22 @@
 package com.example.moviecatalogue.data
 
 import androidx.lifecycle.LiveData
-import com.example.moviecatalogue.data.source.remote.ApiResponse
-import com.example.moviecatalogue.data.source.remote.response.MovieResponse
-import com.example.moviecatalogue.data.source.remote.response.TvResponse
+import com.example.moviecatalogue.data.source.local.entity.RMovieEntity
+import com.example.moviecatalogue.data.source.local.entity.RTvEntity
+import com.example.moviecatalogue.vo.Resource
 
 interface MovieDataSource {
 
-    fun getAllMovies(): LiveData<ApiResponse<List<MovieResponse>>>
+    fun getAllMovies(): LiveData<Resource<List<RMovieEntity>>>
 
-    fun getAllTv(): LiveData<ApiResponse<List<TvResponse>>>
+    fun getAllTv(): LiveData<Resource<List<RTvEntity>>>
 
-    fun getDetailMovie(movie_id: Int): LiveData<ApiResponse<MovieResponse>>
+    fun getDetailMovie(movie_id: Int): LiveData<Resource<RMovieEntity>>
 
-    fun getDetailTv(tv_id: Int): LiveData<ApiResponse<TvResponse>>
+    fun getDetailTv(tv_id: Int): LiveData<Resource<RTvEntity>>
+
+    fun setFavoriteMovie(movie: RMovieEntity, isFavorite: Boolean)
+
+    fun setFavoriteTv(movie: RTvEntity, isFavorite: Boolean)
 
 }
