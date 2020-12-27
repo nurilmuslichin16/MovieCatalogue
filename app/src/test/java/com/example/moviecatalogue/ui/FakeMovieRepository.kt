@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.moviecatalogue.BuildConfig
-import com.example.moviecatalogue.data.source.MovieDataSource
+import com.example.moviecatalogue.data.MovieDataSource
 import com.example.moviecatalogue.data.source.remote.response.MovieResponse
 import com.example.moviecatalogue.data.source.remote.response.TvResponse
 import com.example.moviecatalogue.utils.api.ApiConfig

@@ -2,7 +2,7 @@ package com.example.moviecatalogue.ui.detail
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
-import com.example.moviecatalogue.data.source.MovieRepository
+import com.example.moviecatalogue.data.MovieRepository
 import androidx.lifecycle.Observer
 import com.example.moviecatalogue.data.source.remote.response.MovieResponse
 import com.example.moviecatalogue.data.source.remote.response.TvResponse

@@ -1,9 +1,10 @@
-package com.example.moviecatalogue.data.source
+package com.example.moviecatalogue.data
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.moviecatalogue.BuildConfig
+import com.example.moviecatalogue.data.source.remote.ApiResponse
 import com.example.moviecatalogue.data.source.remote.RemoteDataSource
 import com.example.moviecatalogue.data.source.remote.response.MovieResponse
 import com.example.moviecatalogue.data.source.remote.response.TvResponse
@@ -14,12 +15,13 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MovieRepository private constructor(private val remoteDataSource: RemoteDataSource): MovieDataSource {
+class MovieRepository private constructor(private val remoteDataSource: RemoteDataSource):
+    MovieDataSource {
 
     private val api: String = BuildConfig.API_KEY
 
-    override fun getAllMovies(): LiveData<List<MovieResponse>> {
-        val movieResults = MutableLiveData<List<MovieResponse>>()
+    override fun getAllMovies(): LiveData<ApiResponse<List<MovieResponse>>> {
+        val movieResults = MutableLiveData<ApiResponse<List<MovieResponse>>>()
 
         EspressoIdlingResources.increment()
 
@@ -50,7 +52,7 @@ class MovieRepository private constructor(private val remoteDataSource: RemoteDa
                             movieList.add(movie)
                         }
 
-                        movieResults.postValue(movieList)
+                        movieResults.postValue(ApiResponse.success(movieList))
 
                         EspressoIdlingResources.decrement()
                     }
@@ -67,8 +69,8 @@ class MovieRepository private constructor(private val remoteDataSource: RemoteDa
         return movieResults
     }
 
-    override fun getAllTv(): LiveData<List<TvResponse>> {
-        val tvResults = MutableLiveData<List<TvResponse>>()
+    override fun getAllTv(): LiveData<ApiResponse<List<TvResponse>>> {
+        val tvResults = MutableLiveData<ApiResponse<List<TvResponse>>>()
 
         EspressoIdlingResources.increment()
 
@@ -99,7 +101,7 @@ class MovieRepository private constructor(private val remoteDataSource: RemoteDa
 
                             tvList.add(tv)
                         }
-                        tvResults.postValue(tvList)
+                        tvResults.postValue(ApiResponse.success(tvList))
 
                         EspressoIdlingResources.decrement()
                     }
@@ -116,8 +118,8 @@ class MovieRepository private constructor(private val remoteDataSource: RemoteDa
         return tvResults
     }
 
-    override fun getDetailMovie(movie_id: Int): LiveData<MovieResponse> {
-        val movieResult = MutableLiveData<MovieResponse>()
+    override fun getDetailMovie(movie_id: Int): LiveData<ApiResponse<MovieResponse>> {
+        val movieResult = MutableLiveData<ApiResponse<MovieResponse>>()
 
         EspressoIdlingResources.increment()
 
@@ -144,7 +146,7 @@ class MovieRepository private constructor(private val remoteDataSource: RemoteDa
                                 movieResponse.releaseDate
                         )
 
-                        movieResult.postValue(movie)
+                        movieResult.postValue(ApiResponse.success(movie))
 
                         EspressoIdlingResources.decrement()
                     }
@@ -187,8 +189,8 @@ class MovieRepository private constructor(private val remoteDataSource: RemoteDa
         return movieResult
     }
 
-    override fun getDetailTv(tv_id: Int): LiveData<TvResponse> {
-        val tvResult = MutableLiveData<TvResponse>()
+    override fun getDetailTv(tv_id: Int): LiveData<ApiResponse<TvResponse>> {
+        val tvResult = MutableLiveData<ApiResponse<TvResponse>>()
 
         EspressoIdlingResources.increment()
 
@@ -215,7 +217,7 @@ class MovieRepository private constructor(private val remoteDataSource: RemoteDa
                                 tvResponse.firstAirDate
                         )
 
-                        tvResult.postValue(movie)
+                        tvResult.postValue(ApiResponse.success(movie))
 
                         EspressoIdlingResources.decrement()
                     }

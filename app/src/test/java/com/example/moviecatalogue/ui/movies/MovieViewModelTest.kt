@@ -3,7 +3,7 @@ package com.example.moviecatalogue.ui.movies
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.example.moviecatalogue.data.source.MovieRepository
+import com.example.moviecatalogue.data.MovieRepository
 import com.example.moviecatalogue.data.source.remote.response.MovieResponse
 import com.example.moviecatalogue.utils.DataDummy
 import junit.framework.TestCase.assertEquals
