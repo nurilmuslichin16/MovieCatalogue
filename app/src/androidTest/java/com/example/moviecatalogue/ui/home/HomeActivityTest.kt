@@ -50,7 +50,7 @@ class HomeActivityTest{
 
     @Test
     fun loadDetailMovie() {
-        onView(withId(R.id.rv_movies)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(1, click()))
+        onView(withId(R.id.rv_movies)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
 
         onView(withId(R.id.iv_image_detail)).check(matches(isDisplayed()))
 

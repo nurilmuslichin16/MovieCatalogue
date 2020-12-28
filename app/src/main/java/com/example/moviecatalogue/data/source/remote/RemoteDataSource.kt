@@ -54,7 +54,7 @@ class RemoteDataSource {
                         EspressoIdlingResources.decrement()
                     }
                 } else {
-                    Log.d("MovieRepository", "onFailure: ${response.message()}")
+                    Log.d("MovieRepository", "onResponseFail: ${response.message()}")
                 }
             }
 
@@ -103,7 +103,7 @@ class RemoteDataSource {
                         EspressoIdlingResources.decrement()
                     }
                 } else {
-                    Log.d("MovieRepository", "onFailure: ${response.message()}")
+                    Log.d("MovieRepository", "onResponseFail: ${response.message()}")
                 }
             }
 

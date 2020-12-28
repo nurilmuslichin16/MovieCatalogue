@@ -5,216 +5,152 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.moviecatalogue.BuildConfig
 import com.example.moviecatalogue.data.MovieDataSource
+import com.example.moviecatalogue.data.NetworkBoundResource
+import com.example.moviecatalogue.data.source.local.LocalDataSource
+import com.example.moviecatalogue.data.source.local.entity.RMovieEntity
+import com.example.moviecatalogue.data.source.local.entity.RTvEntity
+import com.example.moviecatalogue.data.source.remote.ApiResponse
+import com.example.moviecatalogue.data.source.remote.RemoteDataSource
 import com.example.moviecatalogue.data.source.remote.response.MovieResponse
 import com.example.moviecatalogue.data.source.remote.response.TvResponse
+import com.example.moviecatalogue.utils.AppExecutors
 import com.example.moviecatalogue.utils.api.ApiConfig
 import com.example.moviecatalogue.utils.pojo.*
+import com.example.moviecatalogue.vo.Resource
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class FakeMovieRepository (): MovieDataSource {
+class FakeMovieRepository constructor(
+        private val remoteDataSource: RemoteDataSource,
+        private val localDataSource: LocalDataSource,
+        private val appExecutors: AppExecutors)
+    : MovieDataSource {
 
-    private val api: String = BuildConfig.API_KEY
+    override fun getAllMovies(): LiveData<Resource<List<RMovieEntity>>> {
+        return object : NetworkBoundResource<List<RMovieEntity>, List<MovieResponse>>(appExecutors) {
+            public override fun loadFromDB(): LiveData<List<RMovieEntity>> =
+                    localDataSource.getAllMovies()
 
-    override fun getAllMovies(): LiveData<List<MovieResponse>> {
-        val movieResults = MutableLiveData<List<MovieResponse>>()
+            override fun shouldFetch(data: List<RMovieEntity>?): Boolean =
+                    data == null || data.isEmpty()
 
-        val client = ApiConfig.getApiService().getMovieTopRated(api)
-        client.enqueue(object : Callback<ResponseMovieTopRated> {
-            override fun onResponse(call: Call<ResponseMovieTopRated>, response: Response<ResponseMovieTopRated>) {
-                if (response.isSuccessful) {
-                    val movieResponse = response.body()?.results
-                    if (movieResponse != null) {
-                        val movieList = ArrayList<MovieResponse>()
-                        for (responseItem in movieResponse) {
-                            val movie = MovieResponse(
-                                responseItem.id,
-                                responseItem.posterPath,
-                                responseItem.title,
-                                responseItem.releaseDate.substring(0,4),
-                                responseItem.voteAverage,
-                                "-",
-                                responseItem.overview,
-                                responseItem.releaseDate
-                            )
-                            movieList.add(movie)
-                        }
+            public override fun createCall(): LiveData<ApiResponse<List<MovieResponse>>> =
+                    remoteDataSource.getAllMovies()
 
-                        movieResults.postValue(movieList)
-                    }
-                } else {
-                    Log.d("MovieRepository", "onFailure: ${response.message()}")
+            public override fun saveCallResult(data: List<MovieResponse>) {
+                val movieList = ArrayList<RMovieEntity>()
+                for (response in data) {
+                    val movie = RMovieEntity(
+                            response.movieId,
+                            response.image,
+                            response.title,
+                            response.years,
+                            response.rating,
+                            response.category,
+                            response.overview,
+                            response.release,
+                            false)
+
+                    movieList.add(movie)
                 }
+                localDataSource.insertMovies(movieList)
             }
-
-            override fun onFailure(call: Call<ResponseMovieTopRated>, t: Throwable) {
-                Log.d("MovieRepository", "onFailure: {${t.message.toString()}")
-            }
-        })
-
-        return movieResults
+        }.asLiveData()
     }
 
-    override fun getAllTv(): LiveData<List<TvResponse>> {
-        val tvResults = MutableLiveData<List<TvResponse>>()
+    override fun getAllTv(): LiveData<Resource<List<RTvEntity>>> {
+        return object : NetworkBoundResource<List<RTvEntity>, List<TvResponse>>(appExecutors) {
+            public override fun loadFromDB(): LiveData<List<RTvEntity>> =
+                    localDataSource.getAllTv()
 
-        val client = ApiConfig.getApiService().getTvTopRated(api)
-        client.enqueue(object : Callback<ResponseTvTopRated> {
-            override fun onResponse(call: Call<ResponseTvTopRated>, response: Response<ResponseTvTopRated>) {
-                if (response.isSuccessful) {
-                    val tvResponses = response.body()?.results
-                    if (tvResponses != null) {
-                        val tvList = ArrayList<TvResponse>()
-                        for (responseItem in tvResponses) {
-                            val tv = TvResponse(
-                                responseItem.id,
-                                responseItem.posterPath,
-                                responseItem.originalName,
-                                responseItem.firstAirDate.substring(0,4),
-                                responseItem.voteAverage,
-                                "-",
-                                responseItem.overview,
-                                responseItem.firstAirDate
-                            )
+            override fun shouldFetch(data: List<RTvEntity>?): Boolean =
+                    data == null || data.isEmpty()
 
-                            tvList.add(tv)
-                        }
-                        tvResults.postValue(tvList)
-                    }
-                } else {
-                    Log.d("MovieRepository", "onFailure: ${response.message()}")
+            public override fun createCall(): LiveData<ApiResponse<List<TvResponse>>> =
+                    remoteDataSource.getAllTv()
+
+            public override fun saveCallResult(data: List<TvResponse>) {
+                val tvList = ArrayList<RTvEntity>()
+                for (response in data) {
+                    val tv = RTvEntity(
+                            response.movieId,
+                            response.image,
+                            response.title,
+                            response.years,
+                            response.rating,
+                            response.category,
+                            response.overview,
+                            response.release,
+                            false)
+
+                    tvList.add(tv)
                 }
+                localDataSource.insertTv(tvList)
             }
-
-            override fun onFailure(call: Call<ResponseTvTopRated>, t: Throwable) {
-                Log.d("MovieRepository", "onFailure: {${t.message.toString()}")
-            }
-        })
-
-        return tvResults
+        }.asLiveData()
     }
 
-    override fun getDetailMovie(movie_id: Int): LiveData<MovieResponse> {
-        val movieResult = MutableLiveData<MovieResponse>()
+    override fun getDetailMovie(movie_id: Int): LiveData<Resource<RMovieEntity>> {
+        return object : NetworkBoundResource<RMovieEntity, MovieResponse>(appExecutors) {
+            public override fun loadFromDB(): LiveData<RMovieEntity> =
+                    localDataSource.getDetailMovie(movie_id)
 
-        val client = ApiConfig.getApiService().getDetailMovie(movie_id, api)
-        client.enqueue(object : Callback<ResponseDetailMovie> {
-            override fun onResponse(call: Call<ResponseDetailMovie>, response: Response<ResponseDetailMovie>) {
-                if (response.isSuccessful) {
-                    val movieResponse = response.body()
-                    if (movieResponse != null) {
-                        val movie = MovieResponse(
-                            movieResponse.id,
-                            movieResponse.posterPath,
-                            movieResponse.title,
-                            movieResponse.releaseDate.substring(0,4),
-                            movieResponse.voteAverage,
-                            checkGenre(movieResponse.genres),
-                            movieResponse.overview,
-                            movieResponse.releaseDate
-                        )
+            override fun shouldFetch(data: RMovieEntity?): Boolean =
+                    data?.category == "-" || data == null
 
-                        movieResult.postValue(movie)
-                    }
-                }
+            public override fun createCall(): LiveData<ApiResponse<MovieResponse>> =
+                    remoteDataSource.getDetailMovie(movie_id)
+
+            public override fun saveCallResult(data: MovieResponse) {
+                val movie = RMovieEntity(
+                        data.movieId,
+                        data.image,
+                        data.title,
+                        data.years,
+                        data.rating,
+                        data.category,
+                        data.overview,
+                        data.release,
+                        false
+                )
+                localDataSource.insertMovieDetail(movie)
             }
-
-            private fun checkGenre(genre: List<GenresItem>): String {
-                var genreResult: String = ""
-                when {
-                    genre.size == 1 -> {
-                        for (item in genre) {
-                            genreResult = item.name
-                        }
-                    }
-                    genre.isNullOrEmpty() -> {
-                        genreResult = "-"
-                    }
-                    else -> {
-                        var no: Int = 0
-                        for (item in genre) {
-                            if (no == 0) {
-                                genreResult += item.name
-                                no++
-                            } else {
-                                genreResult += ", " + item.name
-                                no++
-                            }
-                        }
-                    }
-                }
-
-                return genreResult
-            }
-
-            override fun onFailure(call: Call<ResponseDetailMovie>, t: Throwable) {
-                Log.d("MovieRepository", "onFailure: {${t.message.toString()}")
-            }
-        })
-
-        return movieResult
+        }.asLiveData()
     }
 
-    override fun getDetailTv(tv_id: Int): LiveData<TvResponse> {
-        val tvResult = MutableLiveData<TvResponse>()
+    override fun getDetailTv(tv_id: Int): LiveData<Resource<RTvEntity>> {
+        return object : NetworkBoundResource<RTvEntity, TvResponse>(appExecutors) {
+            public override fun loadFromDB(): LiveData<RTvEntity> =
+                    localDataSource.getDetailTv(tv_id)
 
-        val client = ApiConfig.getApiService().getDetailTv(tv_id, api)
-        client.enqueue(object : Callback<ResponseDetailTv> {
-            override fun onResponse(call: Call<ResponseDetailTv>, response: Response<ResponseDetailTv>) {
-                if (response.isSuccessful) {
-                    val tvResponse = response.body()
-                    if (tvResponse != null) {
-                        val movie = TvResponse(
-                            tvResponse.id,
-                            tvResponse.posterPath,
-                            tvResponse.originalName,
-                            tvResponse.lastAirDate.substring(0,4),
-                            tvResponse.voteAverage,
-                            checkGenre(tvResponse.genres),
-                            tvResponse.overview,
-                            tvResponse.lastAirDate
-                        )
+            override fun shouldFetch(data: RTvEntity?): Boolean =
+                    data?.category == "-" || data == null
 
-                        tvResult.postValue(movie)
-                    }
-                }
+            public override fun createCall(): LiveData<ApiResponse<TvResponse>> =
+                    remoteDataSource.getDetailTv(tv_id)
+
+            public override fun saveCallResult(data: TvResponse) {
+                val tv = RTvEntity(
+                        data.movieId,
+                        data.image,
+                        data.title,
+                        data.years,
+                        data.rating,
+                        data.category,
+                        data.overview,
+                        data.release,
+                        false
+                )
+                localDataSource.insertTvDetail(tv)
             }
-
-            private fun checkGenre(genre: List<TvGenresItem>): String {
-                var genreResult: String = ""
-                when {
-                    genre.size == 1 -> {
-                        for (item in genre) {
-                            genreResult = item.name
-                        }
-                    }
-                    genre.isNullOrEmpty() -> {
-                        genreResult = "-"
-                    }
-                    else -> {
-                        var no: Int = 0
-                        for (item in genre) {
-                            if (no == 0) {
-                                genreResult += item.name
-                                no++
-                            } else {
-                                genreResult += ", " + item.name
-                                no++
-                            }
-                        }
-                    }
-                }
-
-                return genreResult
-            }
-
-            override fun onFailure(call: Call<ResponseDetailTv>, t: Throwable) {
-                Log.d("MovieRepository", "onFailure: {${t.message.toString()}")
-            }
-        })
-
-        return tvResult
+        }.asLiveData()
     }
+
+    override fun setFavoriteMovie(movie: RMovieEntity, isFavorite: Boolean) =
+            appExecutors.diskIO().execute { localDataSource.setFavoriteMovie(movie, isFavorite) }
+
+    override fun setFavoriteTv(movie: RTvEntity, isFavorite: Boolean) =
+            appExecutors.diskIO().execute { localDataSource.setFavoriteTv(movie, isFavorite) }
 
 }
