@@ -26,11 +26,11 @@ class DetailActivity : AppCompatActivity() {
         }
 
         val extras = intent.extras
+        val type = extras?.getString(EXTRA_TYPE)
         if (extras != null) {
             val movieId = extras.getInt(EXTRA_DETAIL, 0)
             if (movieId != 0) {
                 viewModel.setSelectedMovie(movieId)
-                val type = extras.getString(EXTRA_TYPE)
                 if (type == "movie") {
                     viewModel.movieDetail.observe(this, {movie ->
                         if (movie != null) {

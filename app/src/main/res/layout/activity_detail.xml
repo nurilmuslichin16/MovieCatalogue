@@ -177,6 +177,20 @@
             android:layout_centerInParent="true"
             android:visibility="gone" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="655dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:contentDescription="Floating Button Favorite"
+            android:foregroundGravity="bottom"
+            android:elevation="4dp"
+            android:src="@drawable/ic_favorite_disable"
+            app:fabSize="normal"/>
+
     </RelativeLayout>
 
 </ScrollView>
