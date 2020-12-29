@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -13,13 +14,16 @@ import com.example.moviecatalogue.vo.Status
 import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity() {
+
+    private lateinit var viewModel: DetailViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
         supportActionBar?.hide()
         val factory = ViewModelFactory.getInstance(this)
-        val viewModel = ViewModelProvider(this, factory)[DetailViewModel::class.java]
+        viewModel = ViewModelProvider(this, factory)[DetailViewModel::class.java]
 
         iv_back.setOnClickListener {
             finish()
@@ -44,6 +48,9 @@ class DetailActivity : AppCompatActivity() {
                                     tv_rating.text = movie.data?.rating.toString()
                                     tv_release.text = movie.data?.release
                                     tv_overview.text = movie.data?.overview
+
+                                    val isFavorite = movie.data?.isFavorite
+                                    setFavorite(isFavorite)
 
                                     Glide.with(this)
                                             .load("https://image.tmdb.org/t/p/w500" + movie.data?.image)
@@ -79,6 +86,9 @@ class DetailActivity : AppCompatActivity() {
                                     tv_release.text = tv.data?.release
                                     tv_overview.text = tv.data?.overview
 
+                                    val isFavorite = tv.data?.isFavorite
+                                    setFavorite(isFavorite)
+
                                     Glide.with(this)
                                             .load("https://image.tmdb.org/t/p/w500" + tv.data?.image)
                                             .apply(
@@ -102,6 +112,23 @@ class DetailActivity : AppCompatActivity() {
                     })
                 }
             }
+        }
+
+        fab_add_favorite.setOnClickListener {
+            if (type == "movie") {
+                viewModel.setFavoriteMovie()
+            } else {
+                viewModel.setFavoriteTv()
+            }
+        }
+    }
+
+    private fun setFavorite(isFavorite: Boolean?) {
+        if (isFavorite == null) return
+        if (isFavorite) {
+            fab_add_favorite.setImageResource(R.drawable.ic_favorite_enable)
+        } else {
+            fab_add_favorite.setImageResource(R.drawable.ic_favorite_disable)
         }
     }
 
