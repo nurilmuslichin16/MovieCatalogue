@@ -8,9 +8,9 @@ import com.example.moviecatalogue.vo.Resource
 
 interface MovieDataSource {
 
-    fun getAllMovies(): LiveData<Resource<List<RMovieEntity>>>
+    fun getAllMovies(): LiveData<Resource<PagedList<RMovieEntity>>>
 
-    fun getAllTv(): LiveData<Resource<List<RTvEntity>>>
+    fun getAllTv(): LiveData<Resource<PagedList<RTvEntity>>>
 
     fun getDetailMovie(movie_id: Int): LiveData<Resource<RMovieEntity>>
 

@@ -12,7 +12,7 @@ interface MovieDao {
     // Movie
 
     @Query("SELECT * FROM movieentities")
-    fun getMovies(): LiveData<List<RMovieEntity>>
+    fun getMovies(): DataSource.Factory<Int, RMovieEntity>
 
     @Query("SELECT * FROM movieentities WHERE isFavorite = 1")
     fun getFavoriteMovies(): DataSource.Factory<Int, RMovieEntity>
@@ -32,7 +32,7 @@ interface MovieDao {
     // TV Show
 
     @Query("SELECT * FROM tventities")
-    fun getTv(): LiveData<List<RTvEntity>>
+    fun getTv(): DataSource.Factory<Int, RTvEntity>
 
     @Query("SELECT * FROM tventities WHERE isFavorite = 1")
     fun getFavoriteTv(): DataSource.Factory<Int, RTvEntity>

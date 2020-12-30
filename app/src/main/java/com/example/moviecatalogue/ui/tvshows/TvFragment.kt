@@ -15,10 +15,6 @@ import kotlinx.android.synthetic.main.fragment_tv.*
 
 class TvFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,8 +23,8 @@ class TvFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_tv, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
             val factory = ViewModelFactory.getInstance(requireActivity())
             val viewModel = ViewModelProvider(this, factory)[TvViewModel::class.java]
@@ -41,8 +37,7 @@ class TvFragment : Fragment() {
                         Status.LOADING -> progress_bar_tv.visibility = View.VISIBLE
                         Status.SUCCESS -> {
                             progress_bar_tv.visibility = View.GONE
-                            tvAdapter.setTv(tv.data)
-                            tvAdapter.notifyDataSetChanged()
+                            tvAdapter.submitList(tv.data)
                         }
                         Status.ERROR -> {
                             progress_bar_tv.visibility = View.GONE
