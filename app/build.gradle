@@ -61,6 +61,8 @@ dependencies {
 
     implementation "androidx.test.espresso:espresso-idling-resource:3.3.0"
 
+    implementation "androidx.paging:paging-runtime-ktx:2.1.2"
+
     implementation "androidx.room:room-runtime:2.2.6"
     kapt "androidx.room:room-compiler:2.2.6"
 

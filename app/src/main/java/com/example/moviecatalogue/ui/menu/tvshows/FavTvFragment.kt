@@ -37,8 +37,7 @@ class FavTvFragment : Fragment() {
             progress_bar_tv_favorite.visibility = View.VISIBLE
             viewModel.getTv().observe(requireActivity(), {tv ->
                 progress_bar_tv_favorite.visibility = View.GONE
-                tvAdapter.setTv(tv)
-                tvAdapter.notifyDataSetChanged()
+                tvAdapter.submitList(tv)
             })
 
             with(rv_tv_favorite) {
