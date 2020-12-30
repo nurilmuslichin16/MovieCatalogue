@@ -15,6 +15,10 @@ interface MovieDataSource {
 
     fun getDetailTv(tv_id: Int): LiveData<Resource<RTvEntity>>
 
+    fun getAllFavoriteMovies(): LiveData<List<RMovieEntity>>
+
+    fun getAllFavoriteTv(): LiveData<List<RTvEntity>>
+
     fun setFavoriteMovie(movie: RMovieEntity, isFavorite: Boolean)
 
     fun setFavoriteTv(movie: RTvEntity, isFavorite: Boolean)
