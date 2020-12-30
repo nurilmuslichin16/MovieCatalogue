@@ -7,14 +7,25 @@ object SortUtils {
     const val OLDEST = "Oldest"
     const val RANDOM = "Random"
 
-    fun getSortedQuery(filter: String): SimpleSQLiteQuery {
-        val simpleQuery = StringBuilder().append("SELECT * FROM movieentities WHERE isFavorite = 1 ")
-        if (filter == NEWEST) {
-            simpleQuery.append("ORDER BY id DESC")
-        } else if (filter == OLDEST) {
-            simpleQuery.append("ORDER BY id ASC")
-        } else if (filter == RANDOM) {
-            simpleQuery.append("ORDER BY RANDOM()")
+    fun getSortedQuery(filter: String, type: String): SimpleSQLiteQuery {
+        val simpleQuery = StringBuilder().append("SELECT * FROM ")
+
+        if (type == "movie") {
+            simpleQuery.append("movieentities WHERE isFavorite = 1 ")
+        } else {
+            simpleQuery.append("tventities WHERE isFavorite = 1 ")
+        }
+
+        when (filter) {
+            NEWEST -> {
+                simpleQuery.append("ORDER BY movieId ASC")
+            }
+            OLDEST -> {
+                simpleQuery.append("ORDER BY movieId DESC")
+            }
+            RANDOM -> {
+                simpleQuery.append("ORDER BY RANDOM()")
+            }
         }
         return SimpleSQLiteQuery(simpleQuery.toString())
     }

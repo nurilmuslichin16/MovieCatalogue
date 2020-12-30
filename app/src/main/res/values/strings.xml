@@ -23,4 +23,7 @@
     <string name="source_the_movie_database">Source: The Movie Database</string>
     <string name="message_undo">Batalkan menghapus item sebelumnya?</string>
     <string name="message_ok">OK</string>
+    <string name="sort_newest">NEWEST</string>
+    <string name="sort_oldest">OLDEST</string>
+    <string name="sort_random">RANDOM</string>
 </resources>

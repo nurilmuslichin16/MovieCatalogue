@@ -2,6 +2,7 @@ package com.example.moviecatalogue.data.source.local
 
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
+import androidx.sqlite.db.SupportSQLiteQuery
 import com.example.moviecatalogue.data.source.local.entity.RMovieEntity
 import com.example.moviecatalogue.data.source.local.entity.RTvEntity
 import com.example.moviecatalogue.data.source.local.room.MovieDao
@@ -18,7 +19,7 @@ class LocalDataSource private constructor(private val mMovieDao: MovieDao) {
 
     fun insertMovieDetail(movies: RMovieEntity) = mMovieDao.insertMovieDetail(movies)
 
-    fun getAllFavoriteMovies(): DataSource.Factory<Int, RMovieEntity> = mMovieDao.getFavoriteMovies()
+    fun getAllFavoriteMovies(query: SupportSQLiteQuery): DataSource.Factory<Int, RMovieEntity> = mMovieDao.getFavoriteMovies(query)
 
     fun setFavoriteMovie(movie: RMovieEntity, isFavorite: Boolean) {
         movie.isFavorite = isFavorite
@@ -35,7 +36,7 @@ class LocalDataSource private constructor(private val mMovieDao: MovieDao) {
 
     fun insertTvDetail(tv: RTvEntity) = mMovieDao.insertTvDetail(tv)
 
-    fun getAllFavoriteTv(): DataSource.Factory<Int, RTvEntity> = mMovieDao.getFavoriteTv()
+    fun getAllFavoriteTv(query: SupportSQLiteQuery): DataSource.Factory<Int, RTvEntity> = mMovieDao.getFavoriteTv(query)
 
     fun setFavoriteTv(tv: RTvEntity, isFavorite: Boolean) {
         tv.isFavorite = isFavorite

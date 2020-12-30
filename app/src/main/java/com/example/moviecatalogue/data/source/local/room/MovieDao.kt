@@ -3,6 +3,7 @@ package com.example.moviecatalogue.data.source.local.room
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.room.*
+import androidx.sqlite.db.SupportSQLiteQuery
 import com.example.moviecatalogue.data.source.local.entity.RMovieEntity
 import com.example.moviecatalogue.data.source.local.entity.RTvEntity
 
@@ -14,8 +15,8 @@ interface MovieDao {
     @Query("SELECT * FROM movieentities")
     fun getMovies(): DataSource.Factory<Int, RMovieEntity>
 
-    @Query("SELECT * FROM movieentities WHERE isFavorite = 1")
-    fun getFavoriteMovies(): DataSource.Factory<Int, RMovieEntity>
+    @RawQuery(observedEntities = [RMovieEntity::class])
+    fun getFavoriteMovies(query: SupportSQLiteQuery): DataSource.Factory<Int, RMovieEntity>
 
     @Query("SELECT * FROM movieentities WHERE movieId = :movieId")
     fun getMovieId(movieId: Int): LiveData<RMovieEntity>
@@ -34,8 +35,8 @@ interface MovieDao {
     @Query("SELECT * FROM tventities")
     fun getTv(): DataSource.Factory<Int, RTvEntity>
 
-    @Query("SELECT * FROM tventities WHERE isFavorite = 1")
-    fun getFavoriteTv(): DataSource.Factory<Int, RTvEntity>
+    @RawQuery(observedEntities = [RTvEntity::class])
+    fun getFavoriteTv(query: SupportSQLiteQuery): DataSource.Factory<Int, RTvEntity>
 
     @Query("SELECT * FROM tventities WHERE movieId = :movieId")
     fun getTvId(movieId: Int): LiveData<RTvEntity>
