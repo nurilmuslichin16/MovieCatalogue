@@ -1,6 +1,7 @@
 package com.example.moviecatalogue.data
 
 import androidx.lifecycle.LiveData
+import androidx.paging.PagedList
 import com.example.moviecatalogue.data.source.local.entity.RMovieEntity
 import com.example.moviecatalogue.data.source.local.entity.RTvEntity
 import com.example.moviecatalogue.vo.Resource
@@ -15,9 +16,9 @@ interface MovieDataSource {
 
     fun getDetailTv(tv_id: Int): LiveData<Resource<RTvEntity>>
 
-    fun getAllFavoriteMovies(): LiveData<List<RMovieEntity>>
+    fun getAllFavoriteMovies(): LiveData<PagedList<RMovieEntity>>
 
-    fun getAllFavoriteTv(): LiveData<List<RTvEntity>>
+    fun getAllFavoriteTv(): LiveData<PagedList<RTvEntity>>
 
     fun setFavoriteMovie(movie: RMovieEntity, isFavorite: Boolean)
 

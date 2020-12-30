@@ -1,6 +1,8 @@
 package com.example.moviecatalogue.data
 
 import androidx.lifecycle.LiveData
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.example.moviecatalogue.data.source.local.LocalDataSource
 import com.example.moviecatalogue.data.source.local.entity.RMovieEntity
 import com.example.moviecatalogue.data.source.local.entity.RTvEntity
@@ -137,9 +139,21 @@ class MovieRepository private constructor(
         }.asLiveData()
     }
 
-    override fun getAllFavoriteMovies(): LiveData<List<RMovieEntity>> = localDataSource.getAllFavoriteMovies()
+    override fun getAllFavoriteMovies(): LiveData<PagedList<RMovieEntity>> {
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setPageSize(4)
+            .build()
+        return LivePagedListBuilder(localDataSource.getAllFavoriteMovies(), config).build()
+    }
 
-    override fun getAllFavoriteTv(): LiveData<List<RTvEntity>> = localDataSource.getAllFavoriteTv()
+    override fun getAllFavoriteTv(): LiveData<PagedList<RTvEntity>> {
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setPageSize(4)
+            .build()
+        return LivePagedListBuilder(localDataSource.getAllFavoriteTv(), config).build()
+    }
 
     override fun setFavoriteMovie(movie: RMovieEntity, isFavorite: Boolean) =
             appExecutors.diskIO().execute { localDataSource.setFavoriteMovie(movie, isFavorite) }

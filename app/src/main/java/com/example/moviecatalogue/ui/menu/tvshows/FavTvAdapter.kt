@@ -5,6 +5,8 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -13,15 +15,7 @@ import com.example.moviecatalogue.data.source.local.entity.RTvEntity
 import com.example.moviecatalogue.ui.detail.DetailActivity
 import kotlinx.android.synthetic.main.item_tv.view.*
 
-class FavTvAdapter: RecyclerView.Adapter<FavTvAdapter.TvViewHolder>() {
-
-    private var listTv = ArrayList<RTvEntity>()
-
-    fun setTv(tv: List<RTvEntity>?) {
-        if (tv.isNullOrEmpty()) return
-        listTv.clear()
-        listTv.addAll(tv)
-    }
+class FavTvAdapter: PagedListAdapter<RTvEntity, FavTvAdapter.TvViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavTvAdapter.TvViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_tv, parent, false)
@@ -29,11 +23,13 @@ class FavTvAdapter: RecyclerView.Adapter<FavTvAdapter.TvViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: FavTvAdapter.TvViewHolder, position: Int) {
-        val tv = listTv[position]
-        holder.bind(tv)
+        val tv = getItem(position)
+        if (tv != null) {
+            holder.bind(tv)
+        }
     }
 
-    override fun getItemCount(): Int = listTv.size
+    fun getSwipedData(swipedPosition: Int): RTvEntity? = getItem(swipedPosition)
 
     class TvViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         @SuppressLint("SetTextI18n")
@@ -75,4 +71,14 @@ class FavTvAdapter: RecyclerView.Adapter<FavTvAdapter.TvViewHolder>() {
         }
     }
 
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<RTvEntity>() {
+            override fun areItemsTheSame(oldItem: RTvEntity, newItem: RTvEntity): Boolean {
+                return oldItem.movieId == newItem.movieId
+            }
+            override fun areContentsTheSame(oldItem: RTvEntity, newItem: RTvEntity): Boolean {
+                return oldItem == newItem
+            }
+        }
+    }
 }

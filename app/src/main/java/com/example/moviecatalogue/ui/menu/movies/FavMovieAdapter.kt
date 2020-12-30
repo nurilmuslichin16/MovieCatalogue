@@ -5,6 +5,8 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -13,15 +15,7 @@ import com.example.moviecatalogue.data.source.local.entity.RMovieEntity
 import com.example.moviecatalogue.ui.detail.DetailActivity
 import kotlinx.android.synthetic.main.item_movies.view.*
 
-class FavMovieAdapter: RecyclerView.Adapter<FavMovieAdapter.MovieViewHolder>() {
-
-    private var listMovies = ArrayList<RMovieEntity>()
-
-    fun setMovies(movies: List<RMovieEntity>?) {
-        if (movies.isNullOrEmpty()) return
-        listMovies.clear()
-        listMovies.addAll(movies)
-    }
+class FavMovieAdapter: PagedListAdapter<RMovieEntity, FavMovieAdapter.MovieViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavMovieAdapter.MovieViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movies, parent, false)
@@ -29,11 +23,13 @@ class FavMovieAdapter: RecyclerView.Adapter<FavMovieAdapter.MovieViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: FavMovieAdapter.MovieViewHolder, position: Int) {
-        val movie = listMovies[position]
-        holder.bind(movie)
+        val movie = getItem(position)
+        if (movie != null) {
+            holder.bind(movie)
+        }
     }
 
-    override fun getItemCount(): Int = listMovies.size
+    fun getSwipedData(swipedPosition: Int): RMovieEntity? = getItem(swipedPosition)
 
     class MovieViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         @SuppressLint("SetTextI18n")
@@ -75,4 +71,14 @@ class FavMovieAdapter: RecyclerView.Adapter<FavMovieAdapter.MovieViewHolder>() {
         }
     }
 
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<RMovieEntity>() {
+            override fun areItemsTheSame(oldItem: RMovieEntity, newItem: RMovieEntity): Boolean {
+                return oldItem.movieId == newItem.movieId
+            }
+            override fun areContentsTheSame(oldItem: RMovieEntity, newItem: RMovieEntity): Boolean {
+                return oldItem == newItem
+            }
+        }
+    }
 }
