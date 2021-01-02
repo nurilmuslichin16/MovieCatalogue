@@ -76,6 +76,7 @@ class FavTvAdapter: PagedListAdapter<RTvEntity, FavTvAdapter.TvViewHolder>(DIFF_
             override fun areItemsTheSame(oldItem: RTvEntity, newItem: RTvEntity): Boolean {
                 return oldItem.movieId == newItem.movieId
             }
+
             override fun areContentsTheSame(oldItem: RTvEntity, newItem: RTvEntity): Boolean {
                 return oldItem == newItem
             }

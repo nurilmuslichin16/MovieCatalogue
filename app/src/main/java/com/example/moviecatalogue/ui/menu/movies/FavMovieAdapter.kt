@@ -76,6 +76,7 @@ class FavMovieAdapter: PagedListAdapter<RMovieEntity, FavMovieAdapter.MovieViewH
             override fun areItemsTheSame(oldItem: RMovieEntity, newItem: RMovieEntity): Boolean {
                 return oldItem.movieId == newItem.movieId
             }
+
             override fun areContentsTheSame(oldItem: RMovieEntity, newItem: RMovieEntity): Boolean {
                 return oldItem == newItem
             }
