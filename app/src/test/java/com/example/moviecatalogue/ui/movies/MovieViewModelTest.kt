@@ -3,9 +3,9 @@ package com.example.moviecatalogue.ui.movies
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.paging.PagedList
 import com.example.moviecatalogue.data.MovieRepository
 import com.example.moviecatalogue.data.source.local.entity.RMovieEntity
-import com.example.moviecatalogue.data.source.remote.response.MovieResponse
 import com.example.moviecatalogue.utils.DataDummy
 import com.example.moviecatalogue.vo.Resource
 import junit.framework.TestCase.assertEquals
@@ -31,7 +31,10 @@ class MovieViewModelTest {
     private lateinit var movieRepository: MovieRepository
 
     @Mock
-    private lateinit var observer: Observer<Resource<List<RMovieEntity>>>
+    private lateinit var observer: Observer<Resource<PagedList<RMovieEntity>>>
+
+    @Mock
+    private lateinit var pagedList: PagedList<RMovieEntity>
 
     @Before
     fun setUp() {
@@ -40,8 +43,9 @@ class MovieViewModelTest {
 
     @Test
     fun testGetMovies() {
-        val dummyMovies = Resource.success(DataDummy.generateDummyResponseMovie())
-        val movies = MutableLiveData<Resource<List<RMovieEntity>>>()
+        val dummyMovies = Resource.success(pagedList)
+        `when`(dummyMovies.data?.size).thenReturn(5)
+        val movies = MutableLiveData<Resource<PagedList<RMovieEntity>>>()
         movies.value = dummyMovies
 
         `when`(movieRepository.getAllMovies()).thenReturn(movies)

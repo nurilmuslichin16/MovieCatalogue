@@ -6,21 +6,18 @@ import com.example.moviecatalogue.data.source.local.LocalDataSource
 import com.example.moviecatalogue.data.source.local.entity.RMovieEntity
 import com.example.moviecatalogue.data.source.local.entity.RTvEntity
 import com.example.moviecatalogue.data.source.remote.RemoteDataSource
-import com.example.moviecatalogue.data.source.remote.response.MovieResponse
-import com.example.moviecatalogue.data.source.remote.response.TvResponse
 import com.example.moviecatalogue.ui.FakeMovieRepository
-import com.example.moviecatalogue.utils.AppExecutors
-import com.example.moviecatalogue.utils.DataDummy
-import com.example.moviecatalogue.utils.LiveDataTestUtil
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertNotNull
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.verify
+import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
+import androidx.paging.DataSource
+import com.example.moviecatalogue.utils.*
+import com.example.moviecatalogue.vo.Resource
 
 @RunWith(MockitoJUnitRunner::class)
 class MovieRepositoryTest {
@@ -44,11 +41,11 @@ class MovieRepositoryTest {
 
     @Test
     fun testGetAllMovies() {
-        val liveMovie = MutableLiveData<List<RMovieEntity>>()
-        liveMovie.value = movieResponse
+        val dataSourceFactory = mock(DataSource.Factory::class.java) as DataSource.Factory<Int, RMovieEntity>
+        `when`(local.getAllMovies()).thenReturn(dataSourceFactory)
+        movieRepository.getAllMovies()
 
-        `when`(local.getAllMovies()).thenReturn(liveMovie)
-        val movieEntities = LiveDataTestUtil.getValue(movieRepository.getAllMovies())
+        val movieEntities = Resource.success(PagedListUtil.mockPagedList(movieResponse))
         verify(local).getAllMovies()
         assertNotNull(movieEntities.data)
         assertEquals(movieResponse.size.toLong(), movieEntities.data?.size?.toLong())
@@ -56,14 +53,42 @@ class MovieRepositoryTest {
 
     @Test
     fun testGetAllTv() {
-        val liveTv = MutableLiveData<List<RTvEntity>>()
-        liveTv.value = tvResponse
+        val dataSourceFactory = mock(DataSource.Factory::class.java) as DataSource.Factory<Int, RTvEntity>
+        `when`(local.getAllTv()).thenReturn(dataSourceFactory)
+        movieRepository.getAllTv()
 
-        `when`(local.getAllTv()).thenReturn(liveTv)
-        val tvEntities = LiveDataTestUtil.getValue(movieRepository.getAllTv())
+        val tvEntities = Resource.success(PagedListUtil.mockPagedList(tvResponse))
         verify(local).getAllTv()
         assertNotNull(tvEntities.data)
         assertEquals(movieResponse.size.toLong(), tvEntities.data?.size?.toLong())
+    }
+
+    @Test
+    fun testGetAllFavMovies() {
+        val query = SortUtils.getSortedQuery(SortUtils.NEWEST, "movie")
+
+        val dataSourceFactory = mock(DataSource.Factory::class.java) as DataSource.Factory<Int, RMovieEntity>
+        `when`(local.getAllFavoriteMovies(query)).thenReturn(dataSourceFactory)
+        movieRepository.getAllFavoriteMovies(SortUtils.NEWEST)
+
+        val movieEntities = Resource.success(PagedListUtil.mockPagedList(movieResponse))
+        verify(local).getAllMovies()
+        assertNotNull(movieEntities.data)
+        assertEquals(movieResponse.size.toLong(), movieEntities.data?.size?.toLong())
+    }
+
+    @Test
+    fun testGetAllFavTv() {
+        val query = SortUtils.getSortedQuery(SortUtils.NEWEST, "tv")
+
+        val dataSourceFactory = mock(DataSource.Factory::class.java) as DataSource.Factory<Int, RTvEntity>
+        `when`(local.getAllFavoriteTv(query)).thenReturn(dataSourceFactory)
+        movieRepository.getAllFavoriteTv(SortUtils.NEWEST)
+
+        val movieEntities = Resource.success(PagedListUtil.mockPagedList(movieResponse))
+        verify(local).getAllMovies()
+        assertNotNull(movieEntities.data)
+        assertEquals(movieResponse.size.toLong(), movieEntities.data?.size?.toLong())
     }
 
     @Test
