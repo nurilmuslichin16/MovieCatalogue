@@ -1,11 +1,8 @@
 package com.example.moviecatalogue.ui
 
-import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.example.moviecatalogue.BuildConfig
 import com.example.moviecatalogue.data.MovieDataSource
 import com.example.moviecatalogue.data.NetworkBoundResource
 import com.example.moviecatalogue.data.source.local.LocalDataSource
@@ -17,12 +14,7 @@ import com.example.moviecatalogue.data.source.remote.response.MovieResponse
 import com.example.moviecatalogue.data.source.remote.response.TvResponse
 import com.example.moviecatalogue.utils.AppExecutors
 import com.example.moviecatalogue.utils.SortUtils
-import com.example.moviecatalogue.utils.api.ApiConfig
-import com.example.moviecatalogue.utils.pojo.*
 import com.example.moviecatalogue.vo.Resource
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class FakeMovieRepository constructor(
         private val remoteDataSource: RemoteDataSource,

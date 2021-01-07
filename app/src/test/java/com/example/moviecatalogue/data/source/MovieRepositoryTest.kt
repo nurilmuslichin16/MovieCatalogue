@@ -72,7 +72,7 @@ class MovieRepositoryTest {
         movieRepository.getAllFavoriteMovies(SortUtils.NEWEST)
 
         val movieEntities = Resource.success(PagedListUtil.mockPagedList(movieResponse))
-        verify(local).getAllMovies()
+        verify(local).getAllFavoriteMovies(query)
         assertNotNull(movieEntities.data)
         assertEquals(movieResponse.size.toLong(), movieEntities.data?.size?.toLong())
     }
@@ -86,7 +86,7 @@ class MovieRepositoryTest {
         movieRepository.getAllFavoriteTv(SortUtils.NEWEST)
 
         val movieEntities = Resource.success(PagedListUtil.mockPagedList(movieResponse))
-        verify(local).getAllMovies()
+        verify(local).getAllFavoriteTv(query)
         assertNotNull(movieEntities.data)
         assertEquals(movieResponse.size.toLong(), movieEntities.data?.size?.toLong())
     }
