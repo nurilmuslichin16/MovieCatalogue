@@ -10,7 +10,7 @@ import com.example.moviecatalogue.utils.DataDummy
 
 class FavTvViewModel(private val movieRepository: MovieRepository): ViewModel() {
 
-    fun getTv(sort: String): LiveData<PagedList<RTvEntity>> = movieRepository.getAllFavoriteTv(sort)
+    fun getTv(): LiveData<PagedList<RTvEntity>> = movieRepository.getAllFavoriteTv()
 
     fun setFavorite(tv: RTvEntity) {
         val isFavorite = !tv.isFavorite

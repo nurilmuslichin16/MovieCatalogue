@@ -11,7 +11,6 @@ import com.example.moviecatalogue.data.source.remote.RemoteDataSource
 import com.example.moviecatalogue.data.source.remote.response.MovieResponse
 import com.example.moviecatalogue.data.source.remote.response.TvResponse
 import com.example.moviecatalogue.utils.AppExecutors
-import com.example.moviecatalogue.utils.SortUtils
 import com.example.moviecatalogue.vo.Resource
 
 class MovieRepository private constructor(
@@ -152,26 +151,23 @@ class MovieRepository private constructor(
         }.asLiveData()
     }
 
-    override fun getAllFavoriteMovies(sort: String): LiveData<PagedList<RMovieEntity>> {
-        val query = SortUtils.getSortedQuery(sort, "movie")
+    override fun getAllFavoriteMovies(): LiveData<PagedList<RMovieEntity>> {
 
         val config = PagedList.Config.Builder()
             .setEnablePlaceholders(false)
             .setInitialLoadSizeHint(4)
             .setPageSize(4)
             .build()
-        return LivePagedListBuilder(localDataSource.getAllFavoriteMovies(query), config).build()
+        return LivePagedListBuilder(localDataSource.getAllFavoriteMovies(), config).build()
     }
 
-    override fun getAllFavoriteTv(sort: String): LiveData<PagedList<RTvEntity>> {
-        val query = SortUtils.getSortedQuery(sort, "tv")
-
+    override fun getAllFavoriteTv(): LiveData<PagedList<RTvEntity>> {
         val config = PagedList.Config.Builder()
             .setEnablePlaceholders(false)
             .setInitialLoadSizeHint(4)
             .setPageSize(4)
             .build()
-        return LivePagedListBuilder(localDataSource.getAllFavoriteTv(query), config).build()
+        return LivePagedListBuilder(localDataSource.getAllFavoriteTv(), config).build()
     }
 
     override fun setFavoriteMovie(movie: RMovieEntity, isFavorite: Boolean) =

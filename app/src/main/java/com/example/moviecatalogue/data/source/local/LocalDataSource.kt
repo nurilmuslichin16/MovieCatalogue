@@ -19,7 +19,7 @@ class LocalDataSource private constructor(private val mMovieDao: MovieDao) {
 
     fun insertMovieDetail(movies: RMovieEntity) = mMovieDao.insertMovieDetail(movies)
 
-    fun getAllFavoriteMovies(query: SupportSQLiteQuery): DataSource.Factory<Int, RMovieEntity> = mMovieDao.getFavoriteMovies(query)
+    fun getAllFavoriteMovies(): DataSource.Factory<Int, RMovieEntity> = mMovieDao.getFavoriteMovies()
 
     fun setFavoriteMovie(movie: RMovieEntity, isFavorite: Boolean) {
         movie.isFavorite = isFavorite
@@ -36,7 +36,7 @@ class LocalDataSource private constructor(private val mMovieDao: MovieDao) {
 
     fun insertTvDetail(tv: RTvEntity) = mMovieDao.insertTvDetail(tv)
 
-    fun getAllFavoriteTv(query: SupportSQLiteQuery): DataSource.Factory<Int, RTvEntity> = mMovieDao.getFavoriteTv(query)
+    fun getAllFavoriteTv(): DataSource.Factory<Int, RTvEntity> = mMovieDao.getFavoriteTv()
 
     fun setFavoriteTv(tv: RTvEntity, isFavorite: Boolean) {
         tv.isFavorite = isFavorite

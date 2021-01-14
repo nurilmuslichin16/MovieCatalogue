@@ -14,14 +14,14 @@ object DataDummy {
 
         val courses = ArrayList<RMovieEntity>()
 
-        courses.add(RMovieEntity(733317,
-            "https://image.tmdb.org/t/p/w600_and_h900_bestv2/m10Sx3ikuXhJomFnN3OYpkBpYEc.jpg",
-            "Disclosure",
-            "1994",
+        courses.add(RMovieEntity(441282,
+            "https://image.tmdb.org/t/p/w600_and_h900_bestv2/vVYU0x9FRpiJNX7c54ciFnRBVYG.jpg",
+            "Night Hunter",
+            "2019",
                 6.5,
-                "Drama, Crime, Thriller",
-            "A computer specialist is sued for sexual harassment by a former lover turned boss who initiated the act forcefully, which threatens both his career and his personal life.",
-            "1994-03-10",
+                "Drama, Thriller",
+            "A Minnesota police officer crosses paths with a committed and tireless vigilante as he follows the trail of a ruthless predator responsible for several abductions and murders.",
+            "2019-08-29",
                 false))
 
         courses.add(RMovieEntity(646593,

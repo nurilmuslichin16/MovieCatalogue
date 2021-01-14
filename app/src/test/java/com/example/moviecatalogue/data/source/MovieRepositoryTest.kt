@@ -65,28 +65,24 @@ class MovieRepositoryTest {
 
     @Test
     fun testGetAllFavMovies() {
-        val query = SortUtils.getSortedQuery(SortUtils.NEWEST, "movie")
-
         val dataSourceFactory = mock(DataSource.Factory::class.java) as DataSource.Factory<Int, RMovieEntity>
-        `when`(local.getAllFavoriteMovies(query)).thenReturn(dataSourceFactory)
-        movieRepository.getAllFavoriteMovies(SortUtils.NEWEST)
+        `when`(local.getAllFavoriteMovies()).thenReturn(dataSourceFactory)
+        movieRepository.getAllFavoriteMovies()
 
         val movieEntities = Resource.success(PagedListUtil.mockPagedList(movieResponse))
-        verify(local).getAllFavoriteMovies(query)
+        verify(local).getAllFavoriteMovies()
         assertNotNull(movieEntities.data)
         assertEquals(movieResponse.size.toLong(), movieEntities.data?.size?.toLong())
     }
 
     @Test
     fun testGetAllFavTv() {
-        val query = SortUtils.getSortedQuery(SortUtils.NEWEST, "tv")
-
         val dataSourceFactory = mock(DataSource.Factory::class.java) as DataSource.Factory<Int, RTvEntity>
-        `when`(local.getAllFavoriteTv(query)).thenReturn(dataSourceFactory)
-        movieRepository.getAllFavoriteTv(SortUtils.NEWEST)
+        `when`(local.getAllFavoriteTv()).thenReturn(dataSourceFactory)
+        movieRepository.getAllFavoriteTv()
 
         val movieEntities = Resource.success(PagedListUtil.mockPagedList(movieResponse))
-        verify(local).getAllFavoriteTv(query)
+        verify(local).getAllFavoriteTv()
         assertNotNull(movieEntities.data)
         assertEquals(movieResponse.size.toLong(), movieEntities.data?.size?.toLong())
     }
@@ -129,5 +125,39 @@ class MovieRepositoryTest {
         assertEquals(tvDetailResponse.release, tvDetailEntities.data?.release)
         assertEquals(tvDetailResponse.title, tvDetailEntities.data?.title)
         assertEquals(tvDetailResponse.years, tvDetailEntities.data?.years)
+    }
+
+    @Test
+    fun testSetFavoriteMovie() {
+        val movie = RMovieEntity(733317,
+                "https://image.tmdb.org/t/p/w600_and_h900_bestv2/m10Sx3ikuXhJomFnN3OYpkBpYEc.jpg",
+                "Disclosure",
+                "1994",
+                6.5,
+                "Drama, Crime, Thriller",
+                "A computer specialist is sued for sexual harassment by a former lover turned boss who initiated the act forcefully, which threatens both his career and his personal life.",
+                "1994-03-10",
+                false)
+
+        local.setFavoriteMovie(movie, true)
+        verify(local).setFavoriteMovie(movie, true)
+        verifyNoMoreInteractions(local)
+    }
+
+    @Test
+    fun testSetFavoriteTv() {
+        val tv = RTvEntity(82856,
+                "https://image.tmdb.org/t/p/w600_and_h900_bestv2/2IWouZK4gkgHhJa3oyYuSWfSqbG.jpg",
+                "The Simpsons",
+                "1989",
+                7.8,
+                "Animation, Comedy, Family, Drama",
+                "Set in Springfield, the average American town, the show focuses on the antics and everyday adventures of the Simpson family; Homer, Marge, Bart, Lisa and Maggie, as well as a virtual cast of thousands. Since the beginning, the series has been a pop culture icon, attracting hundreds of celebrities to guest star. The show has also made name for itself in its fearless satirical take on politics, media and American life in general.",
+                "1989-12-16",
+                false)
+
+        local.setFavoriteTv(tv, true)
+        verify(local).setFavoriteTv(tv, true)
+        verifyNoMoreInteractions(local)
     }
 }

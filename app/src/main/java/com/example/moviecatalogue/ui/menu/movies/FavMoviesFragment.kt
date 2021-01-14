@@ -5,13 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviecatalogue.R
-import com.example.moviecatalogue.utils.SortUtils
 import com.example.moviecatalogue.viewmodel.ViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_fav_movies.*
@@ -40,7 +38,12 @@ class FavMoviesFragment : Fragment() {
             movieAdapter = FavMovieAdapter()
 
             progress_bar_movies_favorite.visibility = View.VISIBLE
-            viewModel.getMovies(SortUtils.NEWEST).observe(viewLifecycleOwner, { movies ->
+            viewModel.getMovies().observe(viewLifecycleOwner, { movies ->
+                if (movies.isEmpty()) {
+                    ll_empty.visibility = View.VISIBLE
+                } else {
+                    ll_empty.visibility = View.GONE
+                }
                 progress_bar_movies_favorite.visibility = View.GONE
                 movieAdapter.submitList(movies)
             })
@@ -50,28 +53,6 @@ class FavMoviesFragment : Fragment() {
                 setHasFixedSize(true)
                 this.adapter = movieAdapter
             }
-
-            rd_sort_movie.setOnCheckedChangeListener(
-                RadioGroup.OnCheckedChangeListener {group, id ->
-                    when (id) {
-                        R.id.radio_newest -> {
-                            viewModel.getMovies(SortUtils.NEWEST).observe(viewLifecycleOwner, { movies ->
-                                movieAdapter.submitList(movies)
-                            })
-                        }
-                        R.id.radio_oldest -> {
-                            viewModel.getMovies(SortUtils.OLDEST).observe(viewLifecycleOwner, { movies ->
-                                movieAdapter.submitList(movies)
-                            })
-                        }
-                        R.id.radio_random -> {
-                            viewModel.getMovies(SortUtils.RANDOM).observe(viewLifecycleOwner, { movies ->
-                                movieAdapter.submitList(movies)
-                            })
-                        }
-                    }
-                }
-            )
         }
     }
 

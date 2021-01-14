@@ -7,9 +7,6 @@ import androidx.paging.PagedList
 import com.example.moviecatalogue.data.MovieRepository
 import com.example.moviecatalogue.data.source.local.entity.RMovieEntity
 import com.example.moviecatalogue.ui.menu.movies.FavMovieViewModel
-import com.example.moviecatalogue.utils.DataDummy
-import com.example.moviecatalogue.utils.SortUtils
-import com.example.moviecatalogue.vo.Resource
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertNotNull
 import org.junit.Before
@@ -50,13 +47,13 @@ class FavMovieViewModelTest {
         val movies = MutableLiveData<PagedList<RMovieEntity>>()
         movies.value = dummyMovies
 
-        `when`(movieRepository.getAllFavoriteMovies(SortUtils.NEWEST)).thenReturn(movies)
-        val movieResponse = viewModel.getMovies(SortUtils.NEWEST).value
-        verify(movieRepository).getAllFavoriteMovies(SortUtils.NEWEST)
+        `when`(movieRepository.getAllFavoriteMovies()).thenReturn(movies)
+        val movieResponse = viewModel.getMovies().value
+        verify(movieRepository).getAllFavoriteMovies()
         assertNotNull(movieResponse)
         assertEquals(5, movieResponse?.size)
 
-        viewModel.getMovies(SortUtils.NEWEST).observeForever(observer)
+        viewModel.getMovies().observeForever(observer)
         verify(observer).onChanged(dummyMovies)
     }
 

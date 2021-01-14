@@ -6,11 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import com.example.moviecatalogue.data.MovieRepository
 import com.example.moviecatalogue.data.source.local.entity.RTvEntity
-import com.example.moviecatalogue.data.source.remote.response.TvResponse
 import com.example.moviecatalogue.ui.menu.tvshows.FavTvViewModel
-import com.example.moviecatalogue.utils.DataDummy
-import com.example.moviecatalogue.utils.SortUtils
-import com.example.moviecatalogue.vo.Resource
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertNotNull
 import org.junit.Before
@@ -51,13 +47,13 @@ class FavTvViewModelTest {
         val tv = MutableLiveData<PagedList<RTvEntity>>()
         tv.value = dummyTv
 
-        `when`(movieRepository.getAllFavoriteTv(SortUtils.NEWEST)).thenReturn(tv)
-        val tvResponse = viewModel.getTv(SortUtils.NEWEST).value
-        verify(movieRepository).getAllFavoriteTv(SortUtils.NEWEST)
+        `when`(movieRepository.getAllFavoriteTv()).thenReturn(tv)
+        val tvResponse = viewModel.getTv().value
+        verify(movieRepository).getAllFavoriteTv()
         assertNotNull(tvResponse)
         assertEquals(5, tvResponse?.size)
 
-        viewModel.getTv(SortUtils.NEWEST).observeForever(observer)
+        viewModel.getTv().observeForever(observer)
         verify(observer).onChanged(dummyTv)
     }
 

@@ -16,9 +16,9 @@ interface MovieDataSource {
 
     fun getDetailTv(tv_id: Int): LiveData<Resource<RTvEntity>>
 
-    fun getAllFavoriteMovies(sort: String): LiveData<PagedList<RMovieEntity>>
+    fun getAllFavoriteMovies(): LiveData<PagedList<RMovieEntity>>
 
-    fun getAllFavoriteTv(sort: String): LiveData<PagedList<RTvEntity>>
+    fun getAllFavoriteTv(): LiveData<PagedList<RTvEntity>>
 
     fun setFavoriteMovie(movie: RMovieEntity, isFavorite: Boolean)
 
